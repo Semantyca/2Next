@@ -1,55 +1,46 @@
 package com.toonext.core;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.toonext.EnvConst;
 import com.toonext.core.cli.Console;
+import com.toonext.core.resources.LanguageResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.skife.jdbi.v2.DBI;
 
 
-
-public class Server extends Application<MainConfiguration> {
-
-    public static Object compilationTime;
-
-    private static boolean isDevMode = true;
+public class Server extends Application<ServerConfiguration> {
 
 
     public static void main(String[] args) throws Exception {
         new Server().run(args);
-        //if (EnvConst.CLI.equalsIgnoreCase("on") || keepCLI) {
-            Thread thread = new Thread(new Console());
-            thread.setPriority(Thread.MIN_PRIORITY);
-            thread.start();
-        /*} else {
-            Server.logger.warning("CLI is disabled");
-        }*/
-
+        Thread thread = new Thread(new Console());
+        thread.setPriority(Thread.MIN_PRIORITY);
+        thread.start();
     }
 
     @Override
     public String getName() {
-        return "hello-world";
+        return EnvConst.FRAMEWORK_NAME;
     }
 
     @Override
-    public void initialize(Bootstrap<MainConfiguration> bootstrap) {
-        ObjectMapper om = bootstrap.getObjectMapper();
-        om.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        om.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+    public void initialize(Bootstrap<ServerConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
     }
 
     @Override
-    public void run(MainConfiguration configuration,
-                    Environment environment) {
-        environment.jersey().setUrlPattern("/*");
+    public void run(ServerConfiguration config, Environment environment) {
+        environment.jersey().setUrlPattern("/api/*");
+
+        final DBIFactory factory = new DBIFactory();
+        final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "postgresql");
+        environment.jersey().register(new LanguageResource(jdbi));
+
+       // final LanguageDAO dao = database.onDemand(LanguageDAO.class);
+
 
     }
 

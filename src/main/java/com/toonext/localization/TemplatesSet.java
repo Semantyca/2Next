@@ -99,9 +99,9 @@ public class TemplatesSet {
         public String getFileExt() {
             switch (type) {
                 case EMAIL:
-                    return ".html";
+                    return ".assets";
                 case SITE:
-                    return ".html";
+                    return ".assets";
                 case SLACK:
                     return ".md";
                 default:

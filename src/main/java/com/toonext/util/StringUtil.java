@@ -1,8 +1,14 @@
 package com.toonext.util;
 
 
+import com.toonext.log.Lg;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -94,6 +100,30 @@ public class StringUtil {
             }
         }
         return sb.toString();
+    }
+
+    public static String readResource(String file) {
+        InputStreamReader reader = null;
+        try {
+            InputStream in = Object.class.getClass().getResourceAsStream(file);
+            reader = new InputStreamReader(in);
+            String myInputStream = IOUtils.toString(reader);
+
+            return myInputStream;
+        } catch (FileNotFoundException e) {
+            Lg.exception(e);
+        } catch (IOException e) {
+            Lg.exception(e);
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                Lg.exception(e);
+            }
+        }
+        return "";
     }
 
 

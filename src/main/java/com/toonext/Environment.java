@@ -139,7 +139,7 @@ public class Environment {
         mimeHash.put("rtf", "application/msword");
         mimeHash.put("gif", "image/gif");
         mimeHash.put("jpg", "image/jpeg");
-        mimeHash.put("html", "text/html");
+        mimeHash.put("assets", "text/html");
         mimeHash.put("zip", "application/zip");
         mimeHash.put("rar", "application/x-rar-compressed");
     }
