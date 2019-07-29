@@ -31,15 +31,12 @@ public interface IAppEntity<K> extends ISimpleAppEntity<K> {
 
     void setTitle(String title);
 
-    default String getEntityKind() {
+    default String getEntityType() {
         return this.getClass().getSimpleName();
     }
 
     boolean isNew();
 
 
-    default List getExtAttachments() {
-        return null;
-    }
 
 }

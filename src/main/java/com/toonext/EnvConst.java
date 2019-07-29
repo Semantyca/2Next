@@ -16,7 +16,7 @@ public class EnvConst {
     public static final String SERVER_VERSION = "3.3.4";
     public static final String FRAMEWORK_NAME = "nb";
     public static final String FRAMEWORK_LOGO = "nextbase_logo_small.png";
-    public static final String MAIN_PACKAGE = "com.semantyca";
+    public static final String MAIN_PACKAGE = "com.toonext";
     public static final String SUPPOSED_CODE_PAGE = "utf-8";
     public static final String DEFAULT_XML_ENC = "utf-8";
     public static final String APP_ATTR = "app";

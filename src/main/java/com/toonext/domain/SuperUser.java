@@ -6,7 +6,7 @@ package com.toonext.domain;
 
 public class SuperUser extends SystemUser {
     public final static long ID = -1;
-    public static String USER_NAME = "supervisor";
+    public final static String USER_NAME = "supervisor";
 
     @Override
     public String getUserID() {
@@ -20,7 +20,7 @@ public class SuperUser extends SystemUser {
 
     @Override
     public void setUserName(String name) {
-        USER_NAME = name;
+
     }
 
     @Override

@@ -4,6 +4,7 @@
 /.svn/
 # Logs #
 ########
+
 /.settings/
 /.classpath
 /.project

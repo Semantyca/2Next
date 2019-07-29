@@ -5,13 +5,9 @@ import com.toonext.EnvConst;
 import com.toonext.Environment;
 import com.toonext.dataengine.IDatabase;
 import com.toonext.log.Lg;
-import com.toonext.scriptprocessor.ServerTaskClass;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.File;
-import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AppEnv {
     private static final String[] extensions = {"groovy"};
@@ -23,10 +19,6 @@ public class AppEnv {
     private String modulesPath;
     private String webResPath;
     private String defaultPage;
-    private List<ServerTaskClass> min5Tasks = new ArrayList<ServerTaskClass>();
-    private List<ServerTaskClass> hourTasks = new ArrayList<ServerTaskClass>();
-    private List<ServerTaskClass> nightTasks = new ArrayList<ServerTaskClass>();
-    private List<ServerTaskClass> mondayTasks = new ArrayList<ServerTaskClass>();
 
 
     public AppEnv(String n, IDatabase db) {
@@ -105,32 +97,5 @@ public class AppEnv {
         this.defaultPage = defaultPage;
     }
 
-    public void addMin5Task(ServerTaskClass task) {
-        min5Tasks.add(task);
-    }
-
-    public void addHourTask(ServerTaskClass task) {
-        hourTasks.add(task);
-    }
-
-    public void addNightTask(ServerTaskClass task) {
-        nightTasks.add(task);
-    }
-
-    public void addDayOfWeekTask(ServerTaskClass task, DayOfWeek dayOfWeek) {
-        mondayTasks.add(task);
-    }
-
-    public List<ServerTaskClass> getMin5Tasks() {
-        return min5Tasks;
-    }
-
-    public List<ServerTaskClass> getHourTasks() {
-        return hourTasks;
-    }
-
-    public List<ServerTaskClass> getNightTasks() {
-        return nightTasks;
-    }
 
 }

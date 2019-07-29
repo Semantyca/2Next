@@ -11,7 +11,7 @@ public class Language extends SimpleReferenceEntity {
 
     private boolean isOn;
 
-    private int position;
+    private int stance;
 
     private boolean isCyrillic;
 
@@ -19,7 +19,7 @@ public class Language extends SimpleReferenceEntity {
         return isOn;
     }
 
-    public void setOn(boolean isOn) {
+    public void setIsOn(boolean isOn) {
         this.isOn = isOn;
     }
 
@@ -35,20 +35,21 @@ public class Language extends SimpleReferenceEntity {
         this.code = LanguageCode.valueOf(id);
     }
 
-    public int getPosition() {
-        return position;
+    public int getStance() {
+        return stance;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setStance(int stance) {
+        this.stance = stance;
     }
 
     public boolean isCyrillic() {
         return isCyrillic;
     }
 
-    public void setCyrillic(boolean cyrillic) {
+    public void setIsCyrillic(boolean cyrillic) {
         isCyrillic = cyrillic;
     }
+
 
 }

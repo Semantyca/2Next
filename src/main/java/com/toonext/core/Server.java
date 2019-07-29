@@ -1,24 +1,22 @@
 package com.toonext.core;
 
 import com.toonext.EnvConst;
-import com.toonext.core.cli.Console;
 import com.toonext.core.resources.LanguageResource;
+import com.toonext.core.task.DatabaseInitializer;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
-import io.dropwizard.jdbi.DBIFactory;
+import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.postgres.PostgresPlugin;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 
 public class Server extends Application<ServerConfiguration> {
 
-
     public static void main(String[] args) throws Exception {
         new Server().run(args);
-        Thread thread = new Thread(new Console());
-        thread.setPriority(Thread.MIN_PRIORITY);
-        thread.start();
     }
 
     @Override
@@ -34,14 +32,15 @@ public class Server extends Application<ServerConfiguration> {
     @Override
     public void run(ServerConfiguration config, Environment environment) {
         environment.jersey().setUrlPattern("/api/*");
-
-        final DBIFactory factory = new DBIFactory();
-        final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "postgresql");
+        DataSourceFactory sourceFactory = config.getDataSourceFactory();
+        Jdbi jdbi = Jdbi.create(sourceFactory.getUrl(),sourceFactory.getUser(),sourceFactory.getPassword());
+        jdbi.installPlugin(new PostgresPlugin());
+        jdbi.installPlugin(new SqlObjectPlugin());
         environment.jersey().register(new LanguageResource(jdbi));
-
-       // final LanguageDAO dao = database.onDemand(LanguageDAO.class);
-
+        environment.admin().addTask(new DatabaseInitializer(jdbi));
 
     }
+
+
 
 }
