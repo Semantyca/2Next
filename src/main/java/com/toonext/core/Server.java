@@ -38,7 +38,6 @@ public class Server extends Application<ServerConfiguration> {
         jdbi.installPlugin(new SqlObjectPlugin());
         environment.jersey().register(new LanguageResource(jdbi));
         environment.admin().addTask(new DatabaseInitializer(jdbi));
-
     }
 
 

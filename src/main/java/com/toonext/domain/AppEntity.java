@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.toonext.EnvConst;
-
 import org.apache.commons.lang3.time.DateUtils;
-import org.eclipse.jetty.server.Authentication;
 
 import java.util.Date;
 import java.util.UUID;
@@ -123,7 +121,6 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
     public String getURL() {
         return getIdentifier();
     }
-
     
     @Override
     public String getTitle() {
@@ -186,7 +183,4 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         return id != null && id.equals(tmp.id);
     }
 
-    public void setHasAttachments(boolean hasAttachments) {
-        this.hasAttachments = hasAttachments;
-    }
 }
