@@ -1,7 +1,8 @@
-package com.toonext.domain;
+package com.toonext.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.toonext.domain.ISimpleAppEntity;
 import com.toonext.localization.constants.LanguageCode;
 
 import java.security.Principal;

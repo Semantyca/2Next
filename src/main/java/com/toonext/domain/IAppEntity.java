@@ -2,8 +2,9 @@ package com.toonext.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.toonext.domain.user.IUser;
 
-import java.util.*;
+import java.util.Date;
 
 public interface IAppEntity<K> extends ISimpleAppEntity<K> {
 

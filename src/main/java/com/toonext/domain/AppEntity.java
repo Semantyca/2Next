@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.toonext.EnvConst;
+import com.toonext.domain.user.IUser;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.util.Date;

@@ -1,12 +1,11 @@
 package com.toonext.dataengine;
 
 
+import com.toonext.EnvConst;
+import com.toonext.domain.IAppEntity;
+import com.toonext.domain.user.IUser;
 import com.toonext.log.Lg;
 import com.toonext.util.DatabaseUtil;
-import com.toonext.EnvConst;
-
-import com.toonext.domain.IAppEntity;
-import com.toonext.domain.IUser;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.postgres.PostgresPlugin;
 

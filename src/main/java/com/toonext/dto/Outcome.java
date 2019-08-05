@@ -34,6 +34,10 @@ public class Outcome {
         return title;
     }
 
+    public LinkedHashMap<String, Object> getPayload() {
+        return payload;
+    }
+
     public Outcome setTitle(String title) {
         this.title = title;
         return this;
@@ -45,8 +49,8 @@ public class Outcome {
         return this;
     }
 
-    public Outcome addPayload(Object val) {
-        this.payload.put(val.getClass().getSimpleName().toLowerCase(), val);
+    public Outcome addPayload(List val) {
+        this.payload.put("list", val);
         return this;
     }
 
@@ -60,5 +64,10 @@ public class Outcome {
 
     public String toString() {
         return "id=" + id + ", title=" + title + " " + payload;
+    }
+
+    public Outcome addPayload(Object object) {
+        this.payload.put(object.getClass().getSimpleName().toLowerCase(), object);
+        return this;
     }
 }

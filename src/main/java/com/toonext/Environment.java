@@ -1,7 +1,6 @@
 package com.toonext;
 
 import com.toonext.domain.AppEnv;
-import com.toonext.domain.IOfficeFrame;
 import com.toonext.localization.TemplatesSet;
 import com.toonext.localization.Vocabulary;
 import com.toonext.log.Lg;
@@ -177,7 +176,4 @@ public class Environment {
 
 
 
-    public static IOfficeFrame getOfficeFrame() {
-        return null;
-    }
 }

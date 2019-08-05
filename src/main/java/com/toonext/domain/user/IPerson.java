@@ -1,4 +1,4 @@
-package com.toonext.domain;
+package com.toonext.domain.user;
 
 
 import java.util.List;

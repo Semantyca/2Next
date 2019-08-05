@@ -1,5 +1,6 @@
 package com.toonext.domain;
 
+import com.toonext.domain.user.IUser;
 import com.toonext.dto.Reader;
 
 import java.util.List;

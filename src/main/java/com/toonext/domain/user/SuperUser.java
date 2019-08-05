@@ -1,4 +1,4 @@
-package com.toonext.domain;
+package com.toonext.domain.user;
 
 /**
  * @author Kayra on 17/03/16.

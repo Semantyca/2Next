@@ -1,8 +1,8 @@
-package com.toonext.domain;
+package com.toonext.domain.user;
 
-public class UndefinedUser extends SystemUser {
-    public final static String USER_NAME = "undefined";
-    public final static long ID = -999;
+public class AnonymousUser extends SystemUser {
+    public final static String USER_NAME = "anonymous";
+    public final static long ID = 0;
 
     @Override
     public String getUserID() {
@@ -13,6 +13,7 @@ public class UndefinedUser extends SystemUser {
     public String getUserName() {
         return USER_NAME;
     }
+
 
     @Override
     public Long getId() {
@@ -28,5 +29,11 @@ public class UndefinedUser extends SystemUser {
     public String getName() {
         return USER_NAME;
     }
+
+    @Override
+    public boolean isAnonymous(){
+        return true;
+    }
+
 
 }

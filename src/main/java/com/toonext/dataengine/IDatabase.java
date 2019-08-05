@@ -1,7 +1,7 @@
 package com.toonext.dataengine;
 
 import com.toonext.domain.IAppEntity;
-import com.toonext.domain.IUser;
+import com.toonext.domain.user.IUser;
 
 import java.util.List;
 

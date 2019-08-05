@@ -2,9 +2,8 @@ package com.toonext;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.toonext.domain.IUser;
+import com.toonext.domain.user.IUser;
 import com.toonext.localization.constants.LanguageCode;
-
 
 import java.io.File;
 import java.util.HashMap;
