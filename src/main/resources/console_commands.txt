@@ -1,0 +1,26 @@
+quit, exit (q) - stop server with safety;
+tune (tu) - run tuner;
+run batch (rubat) * - run a batch file;
+show batch (shbat) * - show the batch content
+show users (su) - show logged users;
+reset users (ru) - reset all logged users sessions;
+show scheduler queue (ssq) - show scheduler queue;
+show tasks (st) - show all available tasks;
+show application aliases (saa) - show all application aliases;
+show application entities (sae) - show all application entities addInfo;
+run tasks (rt) * run a tasks;
+init ft index (ifi) * - initialize FT-index for a pointed entityClassName class;
+delete ft index (dfi) * vanish FT-index;
+import from h2 (ifh2) - import users list from H2 database;
+addInfo (i) - show some information of the environment;
+show jvm options (sjo) - show current JVM options;
+variables addInfo (vi) - show server variables addInfo;
+modules addInfo (mi) - show some information of the loaded modules;
+database addInfo (dbi) - show some information of the database;
+show services addInfo (ssi) -  show services addInfo;
+database speed (dbs) - show speed index;
+applications addInfo (ai) - show a information of the applications;
+add substitute (as) *>*>... - add substitute (example: user>substitute1>substitute2>...);
+help (h) - show this help;
+
+

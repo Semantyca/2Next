@@ -1,0 +1,17 @@
+languages:
+  - code: ENG
+    name: english
+    isOn: true
+    stance: 1
+    locName:
+      ENG: English
+      RUS: Английский
+    isCyrillic: false
+  - code: RUS
+    name: russian
+    isOn: true
+    stance: 2
+    isCyrillic: true
+    locName:
+      ENG: Russian
+      RUS: Русский
