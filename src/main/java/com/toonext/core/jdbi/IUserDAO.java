@@ -45,6 +45,10 @@ public interface IUserDAO {
     @SqlQuery("select name from something where id = :id")
     String findNameById(@Bind("id") int id);
 
+    @SqlQuery("SELECT * FROM public._users WHERE login = :login")
+    @RegisterFieldMapper(User.class)
+    User findNameByLogin(@Bind("login") String login);
+
     @SqlQuery("SELECT * FROM public._users;")
     @RegisterFieldMapper(User.class)
     List<User> findAll();
