@@ -2,6 +2,7 @@ package com.toonext.core.jdbi;
 
 
 import com.toonext.core.api.User;
+import com.toonext.domain.user.IUser;
 import org.jdbi.v3.sqlobject.config.RegisterFieldMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
@@ -10,6 +11,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface IUserDAO {
 
@@ -42,12 +44,14 @@ public interface IUserDAO {
     @SqlUpdate("insert into something (id, name) values (:id, :name)")
     void insert(@Bind("id") int id, @Bind("name") String name);
 
-    @SqlQuery("select name from something where id = :id")
-    String findNameById(@Bind("id") int id);
 
     @SqlQuery("SELECT * FROM public._users WHERE login = :login")
     @RegisterFieldMapper(User.class)
     User findNameByLogin(@Bind("login") String login);
+
+    @SqlQuery("SELECT * FROM public._users WHERE id = :id")
+    @RegisterFieldMapper(User.class)
+    IUser findById(@Bind("id") long login);
 
     @SqlQuery("SELECT * FROM public._users;")
     @RegisterFieldMapper(User.class)
@@ -55,4 +59,5 @@ public interface IUserDAO {
 
     @SqlUpdate("DROP TABLE public._langs CASCADE;")
     void drop();
+
 }
