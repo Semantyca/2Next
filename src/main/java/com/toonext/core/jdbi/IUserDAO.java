@@ -11,9 +11,12 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public interface IUserDAO {
+
+    @SqlQuery("SELECT * FROM public._users;")
+    @RegisterFieldMapper(User.class)
+    List<User> findAll();
 
     @SqlUpdate("\n" +
             "CREATE TABLE public._users\n" +
@@ -22,9 +25,9 @@ public interface IUserDAO {
             "  login character varying(100),\n" +
             "  pwd character varying(50),\n" +
             "  pwd_hash character varying(100),\n" +
-            "  last_mod_date timestamp without time zone NOT NULL,\n" +
+            "  last_mod_date timestamp with time zone NOT NULL,\n" +
             "  last_mod_user bigint NOT NULL,\n" +
-            "  reg_date timestamp without time zone NOT NULL,\n" +
+            "  reg_date timestamp with time zone NOT NULL,\n" +
             "  title character varying(255),\n" +
             "  author bigint NOT NULL\n" +
             ");")
@@ -53,9 +56,6 @@ public interface IUserDAO {
     @RegisterFieldMapper(User.class)
     IUser findById(@Bind("id") long login);
 
-    @SqlQuery("SELECT * FROM public._users;")
-    @RegisterFieldMapper(User.class)
-    List<User> findAll();
 
     @SqlUpdate("DROP TABLE public._langs CASCADE;")
     void drop();

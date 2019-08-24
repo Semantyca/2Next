@@ -1,22 +1,19 @@
 package com.toonext.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.toonext.domain.user.IUser;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 public interface IAppEntity<K> extends ISimpleAppEntity<K> {
 
-    IUser getAuthor();
+    long getAuthor();
 
-    @JsonIgnore
     void setAuthor(IUser user);
-
 
     void setLastModifier(IUser user);
 
-    Date getRegDate();
+    ZonedDateTime getRegDate();
 
     boolean isEditable();
 
@@ -37,7 +34,4 @@ public interface IAppEntity<K> extends ISimpleAppEntity<K> {
     }
 
     boolean isNew();
-
-
-
 }

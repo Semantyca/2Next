@@ -54,6 +54,10 @@ public class Outcome {
         return this;
     }
 
+    public Outcome addPayload(String name, List val) {
+        this.payload.put(name, val);
+        return this;
+    }
 
     public Outcome setError(String msg){
         setId("error");

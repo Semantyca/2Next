@@ -4,34 +4,36 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.toonext.EnvConst;
 import com.toonext.domain.user.IUser;
-import org.apache.commons.lang3.time.DateUtils;
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
-@JsonPropertyOrder({"kind", "id", "title", "regDate", "wasRead", "url", "authorId", "editable", "isNew"})
+@JsonPropertyOrder({"id", "title", "regDate", "wasRead", "url", "authorId", "editable", "isNew"})
 public abstract class AppEntity<K> implements IAppEntity<K> {
-
 
     protected K id;
 
-    private IUser author;
+    protected String identifier;
 
-    private Date regDate;
+    protected long author;
 
-    private Date lastModifiedDate = new Date();
+    @ColumnName("reg_date")
+    private ZonedDateTime regDate;
 
+    @ColumnName("last_mod_date")
+    private ZonedDateTime lastModifiedDate = ZonedDateTime.now();
+
+    @ColumnName("last_mod_user")
     private Long lastModifier;
 
     private boolean editable = true;
 
     private boolean wasRead = true;
 
-    private boolean hasAttachments;
-
     private boolean deleted;
+
     private String title;
 
     @Override
@@ -44,25 +46,26 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         this.id = id;
     }
 
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
 
     public String getIdentifier() {
-        if (id != null) {
-            return id.toString();
+        if (identifier != null) {
+            return identifier.toString();
         } else {
-            return "null";
+            return id.toString();
         }
     }
 
-    public long getAuthorId() {
-        return author == null ? 0 : author.getId();
+    public void setAuthor(long author) {
+        this.author = author;
     }
 
-    @JsonIgnore
     @Override
-    public IUser getAuthor() {
+    public long getAuthor() {
         return author;
     }
-
 
     @JsonIgnore
     @Override
@@ -70,42 +73,42 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         /*User u = new User();
         u.setId(user.getId());*/
        // author = u;
-        regDate = new Date();
+        regDate = ZonedDateTime.now();
     }
 
-   
     @Override
     @JsonGetter
-    public Date getRegDate() {
-        try {
-            return DateUtils.addHours(regDate, EnvConst.TIME_ZONE);
-        } catch (Exception e) {
-            return regDate;
-        }
+    public ZonedDateTime getRegDate() {
+        return regDate;
+
     }
 
     @JsonIgnore
-    public void setRegDate(Date regDate) {
+    public void setRegDate(ZonedDateTime regDate) {
         this.regDate = regDate;
     }
 
-    public Date getLastModifiedDate() {
-        try {
-            return DateUtils.addHours(lastModifiedDate, EnvConst.TIME_ZONE);
-        } catch (Exception e) {
-            return lastModifiedDate;
-        }
+    public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public ZonedDateTime getLastModifiedDate() {
+        return lastModifiedDate;
     }
 
     public Long getLastModifier() {
         return lastModifier;
     }
 
+    public void setLastModifier(Long lastModifier) {
+        this.lastModifier = lastModifier;
+    }
+
     @JsonIgnore
     @Override
     public void setLastModifier(IUser user) {
         lastModifier = user.getId();
-        lastModifiedDate = new Date();
+        lastModifiedDate = ZonedDateTime.now();
     }
 
     @JsonIgnore
@@ -115,7 +118,7 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
             return "id is null," + this.getClass().getName();
         }
         UUID id = UUID.fromString(getId().toString());
-        return id.toString() + "," + this.getClass().getName();
+        return id.toString() + "," + this.getEntityType();
     }
 
 

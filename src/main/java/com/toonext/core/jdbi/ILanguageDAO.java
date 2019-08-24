@@ -1,16 +1,27 @@
 package com.toonext.core.jdbi;
 
 
+import com.toonext.core.api.Language;
 import com.toonext.localization.constants.LanguageCode;
+import org.jdbi.v3.sqlobject.config.RegisterColumnMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public interface ILanguageDAO {
+
+    @SqlQuery("SELECT * FROM public._langs;")
+    @RegisterColumnMapper(LanguageMapper.class)
+    List<Language> findAll();
+
+    @SqlQuery("SELECT * FROM public._langs as l WHERE l.is_on = TRUE;")
+    @RegisterColumnMapper(LanguageMapper.class)
+    List<Language> findAllActivated();
 
     @SqlUpdate("CREATE TABLE public._langs\n" +
             "(\n" +
@@ -18,12 +29,12 @@ public interface ILanguageDAO {
             "  code character varying(7),\n" +
             "  is_cyr boolean,\n" +
             "  is_on boolean,\n" +
-            "  last_mod_date timestamp without time zone NOT NULL,\n" +
+            "  last_mod_date timestamp with time zone NOT NULL,\n" +
             "  last_mod_user bigint NOT NULL,\n" +
             "  loc_name jsonb,\n" +
-            "  name character varying(255),\n" +
+            "  identifier character varying(64),\n" +
             "  stance integer,\n" +
-            "  reg_date timestamp without time zone NOT NULL,\n" +
+            "  reg_date timestamp with time zone NOT NULL,\n" +
             "  title character varying(255),\n" +
             "  author bigint NOT NULL,\n" +
             "  CONSTRAINT _langs_pkey PRIMARY KEY (id),\n" +
@@ -36,7 +47,7 @@ public interface ILanguageDAO {
 
 
     @SqlUpdate("INSERT INTO public._langs(code, is_cyr, is_on, last_mod_date, last_mod_user, \n" +
-            "loc_name, name, stance, reg_date, title, author)VALUES (?,?,?,?,?,?::json,?,?,?,?,?);")
+            "loc_name, identifier, stance, reg_date, title, author)VALUES (?,?,?,?,?,?::json,?,?,?,?,?);")
     @GetGeneratedKeys("id")
     UUID insert(LanguageCode code, boolean isCyrillic, boolean isOn, ZonedDateTime dateTime, long user, @BindJson("loc_name") String locName, String name, int stance,
                 ZonedDateTime regDate, String title, long author);
@@ -49,4 +60,5 @@ public interface ILanguageDAO {
 
     @SqlUpdate("DROP TABLE public._langs CASCADE;")
     void drop();
+
 }

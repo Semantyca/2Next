@@ -9,8 +9,11 @@ import com.toonext.core.jdbi.ILanguageDAO;
 import com.toonext.core.jdbi.IUserDAO;
 import com.toonext.domain.user.AnonymousUser;
 import com.toonext.domain.user.SuperUser;
+import com.toonext.log.Lg;
 import io.dropwizard.servlets.tasks.Task;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
+import org.postgresql.util.PSQLException;
 
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -35,12 +38,30 @@ public class DatabaseInitializer extends Task {
     public void execute(Map<String, List<String>> map, PrintWriter printWriter) throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
         IUserDAO userDAO = dbi.onDemand(IUserDAO.class);
-        userDAO.createTable();
-        userDAO.insert(SuperUser.ID, SuperUser.USER_NAME, "12345","",ZonedDateTime.now(), SuperUser.ID, ZonedDateTime.now(), SuperUser.USER_NAME, SuperUser.ID);
-        userDAO.insert(AnonymousUser.ID, AnonymousUser.USER_NAME, "12345","",ZonedDateTime.now(), SuperUser.ID, ZonedDateTime.now(), AnonymousUser.USER_NAME, SuperUser.ID);
+        try {
+            userDAO.createTable();
+        }catch (UnableToExecuteStatementException e){
+            logException(e, "42P07");
+        }
+
+        try {
+            userDAO.insert(SuperUser.ID, SuperUser.USER_NAME, "12345", "", ZonedDateTime.now(), SuperUser.ID, ZonedDateTime.now(), SuperUser.USER_NAME, SuperUser.ID);
+        }catch (UnableToExecuteStatementException e){
+            logException(e, "23505");
+        }
+
+        try{
+            userDAO.insert(AnonymousUser.ID, AnonymousUser.USER_NAME, "12345", "", ZonedDateTime.now(), SuperUser.ID, ZonedDateTime.now(), AnonymousUser.USER_NAME, SuperUser.ID);
+        }catch (UnableToExecuteStatementException e){
+            logException(e, "23505");
+        }
 
         ILanguageDAO dao = dbi.onDemand(ILanguageDAO.class);
-        dao.createTable();
+        try {
+            dao.createTable();
+        }catch (UnableToExecuteStatementException e){
+            logException(e, "42P07");
+        }
 
 
         ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
@@ -55,10 +76,21 @@ public class DatabaseInitializer extends Task {
             languages.add(language);
 
             String jsonText = jsonMapper.writeValueAsString(language.getLocName());
-            dao.insert(language.getCode(), language.isCyrillic(), language.isOn(), ZonedDateTime.now(), SuperUser.ID, jsonText, language.getName(),
-                    language.getStance(),ZonedDateTime.now(),"title", SuperUser.ID);
+            try {
+                dao.insert(language.getCode(), language.isCyrillic(), language.isOn(), ZonedDateTime.now(), SuperUser.ID, jsonText, language.getIdentifier(),
+                        language.getStance(), ZonedDateTime.now(), "title", SuperUser.ID);
+            }catch (UnableToExecuteStatementException e){
+                logException(e, "23505");
+            }
         }
 
+    }
 
+    private void logException(Exception e, String warningExcept){
+        if (e.getCause() instanceof PSQLException && ((PSQLException)e.getCause()).getSQLState().equals(warningExcept)){
+            Lg.warning(e.getCause().getMessage());
+        }else {
+            Lg.exception(e);
+        }
     }
 }

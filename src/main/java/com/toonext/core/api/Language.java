@@ -3,16 +3,18 @@ package com.toonext.core.api;
 
 import com.toonext.domain.SimpleReferenceEntity;
 import com.toonext.localization.constants.LanguageCode;
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 public class Language extends SimpleReferenceEntity {
 
     private LanguageCode code = LanguageCode.UNKNOWN;
 
-
+    @ColumnName("is_on")
     private boolean isOn;
 
     private int stance;
 
+    @ColumnName("is_cyr")
     private boolean isCyrillic;
 
     public boolean isOn() {

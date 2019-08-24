@@ -69,15 +69,15 @@ public class Application extends SimpleReferenceEntity {
     }
 
     public String[] getAvailableThemes() {
-        return (String[]) ReflectionUtil.getAppConstValue(name, "AVAILABLE_THEME");
+        return (String[]) ReflectionUtil.getAppConstValue(identifier, "AVAILABLE_THEME");
     }
 
     public String[] getAvailableRoles() {
-        return (String[]) ReflectionUtil.getAppConstValue(name, "ROLES");
+        return (String[]) ReflectionUtil.getAppConstValue(identifier, "ROLES");
     }
 
     public String getVisibility() {
-        Enum t = ((VisibilityMode) ReflectionUtil.getAppConstValue(name, "VISIBILITY"));
+        Enum t = ((VisibilityMode) ReflectionUtil.getAppConstValue(identifier, "VISIBILITY"));
         if (t == null) {
             return null;
         } else {
@@ -86,12 +86,8 @@ public class Application extends SimpleReferenceEntity {
     }
 
     public String getDefaultPage() {
-        return (String) ReflectionUtil.getAppConstValue(name, "DEFAULT_PAGE");
+        return (String) ReflectionUtil.getAppConstValue(identifier, "DEFAULT_PAGE");
     }
 
 
-    @Override
-    public String toString() {
-        return name;
-    }
 }

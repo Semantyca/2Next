@@ -2,45 +2,23 @@ package com.toonext.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.toonext.localization.constants.LanguageCode;
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class SimpleReferenceEntity extends AppEntity<UUID> implements ISimpleReferenceEntity {
+public class SimpleReferenceEntity extends AppEntity<UUID> {
 
-
-    protected String name;
-
+    @ColumnName("loc_name")
     private Map<LanguageCode, String> locName = new HashMap<LanguageCode, String>();
 
-
-    @Override
-    public String getTitle() {
-        if (super.getTitle() == null || super.getTitle().isEmpty()) {
-            return name;
-        }
-        return super.getTitle();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-        super.setTitle(name);
-    }
 
     @JsonIgnore
     @Override
     public String toString() {
-        if (getId() == null) {
-            return "id is null, name=" + name;
-        }
         UUID id = UUID.fromString(getId().toString());
-        return id.toString() + ", name=" + name;
+        return id.toString() + ", name=" + identifier;
     }
 
     public Map<LanguageCode, String> getLocName() {
@@ -57,10 +35,10 @@ public class SimpleReferenceEntity extends AppEntity<UUID> implements ISimpleRef
             if (val != null && (!val.isEmpty())) {
                 return val;
             } else {
-                return name;
+                return identifier;
             }
         } catch (Exception e) {
-            return name;
+            return identifier;
         }
     }
 

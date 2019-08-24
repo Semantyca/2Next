@@ -1,13 +1,14 @@
 package com.toonext.core.api;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.toonext.EnvConst;
 import com.toonext.core.api.constants.UserStatusCode;
 import com.toonext.domain.user.IUser;
 import com.toonext.localization.constants.LanguageCode;
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 import java.security.Principal;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,15 +17,23 @@ public class User implements IUser, Principal {
 
     private long id;
 
-    protected Date regDate;
+    @ColumnName("reg_date")
+    protected ZonedDateTime regDate;
+
+    @ColumnName("last_mod_date")
+    private ZonedDateTime lastModifiedDate;
+
+    private String title;
+
+    private long author;
 
     protected Integer timeZone;
 
     private UserStatusCode status = UserStatusCode.UNKNOWN;
 
-    private List<Long> substitutes = new ArrayList();
+    private List<Long> substitutes = new ArrayList<>();
 
-    private List<String> roles = new ArrayList();
+    private List<String> roles = new ArrayList<>();
 
     private String login;
 
@@ -36,30 +45,21 @@ public class User implements IUser, Principal {
 
     private String pwdConfirm;
 
+    @ColumnName("pwd_hash")
     private String pwdHash;
 
-    private List userApplications = new ArrayList();
+    @ColumnName("last_mod_user")
+    private Long lastModifier;
+
+    private List userApplications = new ArrayList<>();
 
     private LanguageCode defaultLang = EnvConst.getDefaultLang();
 
     private boolean isSuperUser;
 
-    @JsonIgnore
     private boolean isAuthorized;
 
-    private String theme = "";
-
-/*
-
-    @ConstructorProperties({ "login" })
-    public User( String login) {
-        //this.id = id;
-        this.login = login;
-    }
-*/
-
-
-    public Date getRegDate() {
+    public ZonedDateTime getRegDate() {
         return regDate;
     }
 
@@ -72,6 +72,86 @@ public class User implements IUser, Principal {
     @Override
     public void setId(Long id) {
 
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public ZonedDateTime getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public long getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(long author) {
+        this.author = author;
+    }
+
+    public Integer getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(Integer timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    public UserStatusCode getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatusCode status) {
+        this.status = status;
+    }
+
+    public boolean isSendPwd() {
+        return sendPwd;
+    }
+
+    public void setSendPwd(boolean sendPwd) {
+        this.sendPwd = sendPwd;
+    }
+
+    public String getPwdConfirm() {
+        return pwdConfirm;
+    }
+
+    public void setPwdConfirm(String pwdConfirm) {
+        this.pwdConfirm = pwdConfirm;
+    }
+
+    public Long getLastModifier() {
+        return lastModifier;
+    }
+
+    public void setLastModifier(Long lastModifier) {
+        this.lastModifier = lastModifier;
+    }
+
+    public List getUserApplications() {
+        return userApplications;
+    }
+
+    public void setUserApplications(List userApplications) {
+        this.userApplications = userApplications;
+    }
+
+    public void setSuperUser(boolean superUser) {
+        isSuperUser = superUser;
     }
 
     @Override
@@ -104,7 +184,6 @@ public class User implements IUser, Principal {
 
     }
 
-    @JsonIgnore
     @Override
     public boolean isAuthorized() {
         return false;
