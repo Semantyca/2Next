@@ -9,11 +9,8 @@ import com.toonext.core.jdbi.ILanguageDAO;
 import com.toonext.core.jdbi.IUserDAO;
 import com.toonext.domain.user.AnonymousUser;
 import com.toonext.domain.user.SuperUser;
-import com.toonext.log.Lg;
-import io.dropwizard.servlets.tasks.Task;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
-import org.postgresql.util.PSQLException;
 
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -24,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class DatabaseInitializer extends Task {
+public class DatabaseInitializer extends CommonTask {
     private final Jdbi dbi;
 
 
@@ -41,26 +38,26 @@ public class DatabaseInitializer extends Task {
         try {
             userDAO.createTable();
         }catch (UnableToExecuteStatementException e){
-            logException(e, "42P07");
+            logDatabaseException(e, "42P07");
         }
 
         try {
             userDAO.insert(SuperUser.ID, SuperUser.USER_NAME, "12345", "", ZonedDateTime.now(), SuperUser.ID, ZonedDateTime.now(), SuperUser.USER_NAME, SuperUser.ID);
         }catch (UnableToExecuteStatementException e){
-            logException(e, "23505");
+            logDatabaseException(e, "23505");
         }
 
         try{
             userDAO.insert(AnonymousUser.ID, AnonymousUser.USER_NAME, "12345", "", ZonedDateTime.now(), SuperUser.ID, ZonedDateTime.now(), AnonymousUser.USER_NAME, SuperUser.ID);
         }catch (UnableToExecuteStatementException e){
-            logException(e, "23505");
+            logDatabaseException(e, "23505");
         }
 
         ILanguageDAO dao = dbi.onDemand(ILanguageDAO.class);
         try {
             dao.createTable();
         }catch (UnableToExecuteStatementException e){
-            logException(e, "42P07");
+            logDatabaseException(e, "42P07");
         }
 
 
@@ -80,17 +77,10 @@ public class DatabaseInitializer extends Task {
                 dao.insert(language.getCode(), language.isCyrillic(), language.isOn(), ZonedDateTime.now(), SuperUser.ID, jsonText, language.getIdentifier(),
                         language.getStance(), ZonedDateTime.now(), "title", SuperUser.ID);
             }catch (UnableToExecuteStatementException e){
-                logException(e, "23505");
+                logDatabaseException(e, "23505");
             }
         }
 
     }
 
-    private void logException(Exception e, String warningExcept){
-        if (e.getCause() instanceof PSQLException && ((PSQLException)e.getCause()).getSQLState().equals(warningExcept)){
-            Lg.warning(e.getCause().getMessage());
-        }else {
-            Lg.exception(e);
-        }
-    }
 }
