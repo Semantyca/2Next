@@ -5,33 +5,28 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.toonext.EnvConst;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-@JsonPropertyOrder({"id", "title", "message", "payload"})
+@JsonPropertyOrder({"type", "title", "pageName", "payload"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Outcome {
-    public final static String UNDEFINED_ID = "undefined";
-
-    protected List<String> message = new ArrayList<>();
-    protected String id = UNDEFINED_ID;
+    protected OutcomeType type = OutcomeType.DEFAULT;
     protected String title = EnvConst.APP_ID;
+    protected String pageName;
     protected LinkedHashMap<String, Object> payload = new LinkedHashMap<>();
 
     public Outcome() {
+
     }
 
-    public String getId() {
-        return id;
+    public void setType(OutcomeType type) {
+        this.type = type;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
+    public OutcomeType getType() {
+        return type;
     }
 
     public LinkedHashMap<String, Object> getPayload() {
@@ -43,9 +38,20 @@ public class Outcome {
         return this;
     }
 
-    public Outcome setMessage(String msg) {
-        message.clear();
-        this.message.add(msg);
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPageName() {
+        return pageName;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
+    }
+
+    public Outcome addPayload(String name, String val) {
+        this.payload.put(name, val);
         return this;
     }
 
@@ -54,20 +60,14 @@ public class Outcome {
         return this;
     }
 
-    public Outcome addPayload(String name, List val) {
+    public Outcome addPayload(String name, Collection val) {
         this.payload.put(name, val);
         return this;
     }
 
-    public Outcome setError(String msg){
-        setId("error");
-        setTitle(msg);
-        setMessage(msg);
-        return this;
-    }
 
     public String toString() {
-        return "id=" + id + ", title=" + title + " " + payload;
+        return "type=" + type + ", title=" + title + " " + payload;
     }
 
     public Outcome addPayload(Object object) {

@@ -6,7 +6,7 @@ import com.toonext.domain.ISimpleAppEntity;
 import com.toonext.localization.constants.LanguageCode;
 
 import java.security.Principal;
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @JsonRootName("user")
@@ -16,11 +16,6 @@ public interface IUser extends ISimpleAppEntity<Long>, Principal {
 
     @JsonIgnore
     String getPwdHash();
-
-    void setPwdHash(String pwdHash);
-
-    @JsonIgnore
-    String getPwd();
 
     void setPwd(String value);
 
@@ -38,8 +33,6 @@ public interface IUser extends ISimpleAppEntity<Long>, Principal {
 
     void setUserName(String name);
 
-
-
     boolean isSuperUser();
 
     @JsonIgnore
@@ -47,15 +40,15 @@ public interface IUser extends ISimpleAppEntity<Long>, Principal {
         return false;
     };
 
-
     List<String> getRoles();
 
     void setRoles(List<String> allRoles);
 
+    void addRole(String role);
+
     LanguageCode getDefaultLang();
 
     void setDefaultLang(LanguageCode defaultLang);
-
 
     boolean isAllowed(String appName);
 
@@ -67,17 +60,15 @@ public interface IUser extends ISimpleAppEntity<Long>, Principal {
 
     String getSlack();
 
-    void setRegDate(Date date);
+    void setRegDate(ZonedDateTime date);
 
   /*  UserStatusCode getStatus();
 
     void setStatus(UserStatusCode status);*/
 
-    String getExtKey();
-
-    void setExtKey(String extKey);
-
     List<Long> getSubstitutes();
 
     void setSubstitutes(List<Long> substitutes);
+
+
 }

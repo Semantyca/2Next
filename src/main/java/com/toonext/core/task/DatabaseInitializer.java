@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.toonext.core.api.Language;
+import com.toonext.core.dao.ITokenDAO;
 import com.toonext.core.jdbi.ILanguageDAO;
 import com.toonext.core.jdbi.IUserDAO;
 import com.toonext.domain.user.AnonymousUser;
+import com.toonext.domain.user.IUser;
 import com.toonext.domain.user.SuperUser;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
@@ -23,6 +25,7 @@ import java.util.Map;
 
 public class DatabaseInitializer extends CommonTask {
     private final Jdbi dbi;
+    private static final String DEFAULT_PASSWORD = "12345";
 
 
     public DatabaseInitializer(Jdbi jdbi) {
@@ -34,6 +37,15 @@ public class DatabaseInitializer extends CommonTask {
     @Override
     public void execute(Map<String, List<String>> map, PrintWriter printWriter) throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
+
+        ITokenDAO tokenDAO = dbi.onDemand(ITokenDAO.class);
+        try {
+            tokenDAO.createTable();
+        }catch (UnableToExecuteStatementException e){
+            logDatabaseException(e, "42P07");
+        }
+
+
         IUserDAO userDAO = dbi.onDemand(IUserDAO.class);
         try {
             userDAO.createTable();
@@ -41,17 +53,15 @@ public class DatabaseInitializer extends CommonTask {
             logDatabaseException(e, "42P07");
         }
 
-        try {
-            userDAO.insert(SuperUser.ID, SuperUser.USER_NAME, "12345", "", ZonedDateTime.now(), SuperUser.ID, ZonedDateTime.now(), SuperUser.USER_NAME, SuperUser.ID);
-        }catch (UnableToExecuteStatementException e){
-            logDatabaseException(e, "23505");
+        IUser[] systemUsers = {new SuperUser(), new AnonymousUser()};
+        for (IUser user: systemUsers) {
+            try {
+                userDAO.insert(user.getId(), user.getUserName(), DEFAULT_PASSWORD, "", ZonedDateTime.now(), user.getId(), ZonedDateTime.now(), user.getUserName(), user.getId());
+            } catch (UnableToExecuteStatementException e) {
+                logDatabaseException(e, "23505");
+            }
         }
 
-        try{
-            userDAO.insert(AnonymousUser.ID, AnonymousUser.USER_NAME, "12345", "", ZonedDateTime.now(), SuperUser.ID, ZonedDateTime.now(), AnonymousUser.USER_NAME, SuperUser.ID);
-        }catch (UnableToExecuteStatementException e){
-            logDatabaseException(e, "23505");
-        }
 
         ILanguageDAO dao = dbi.onDemand(ILanguageDAO.class);
         try {

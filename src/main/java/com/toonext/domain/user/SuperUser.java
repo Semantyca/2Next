@@ -1,5 +1,9 @@
 package com.toonext.domain.user;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Kayra on 17/03/16.
  */
@@ -21,6 +25,11 @@ public class SuperUser extends SystemUser {
     @Override
     public void setUserName(String name) {
 
+    }
+
+    @Override
+    public List<String> getRoles() {
+        return new ArrayList<>(Arrays.asList(ServerRole.AUTHENTICATED));
     }
 
     @Override

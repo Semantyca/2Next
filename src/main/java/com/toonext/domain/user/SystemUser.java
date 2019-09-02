@@ -5,8 +5,8 @@ import com.toonext.core.api.constants.UserStatusCode;
 import com.toonext.localization.constants.LanguageCode;
 
 import javax.security.auth.Subject;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,16 +17,6 @@ public abstract class SystemUser implements IUser {
 
     @Override
     public String getPwdHash() {
-        return null;
-    }
-
-    @Override
-    public void setPwdHash(String pwdHash) {
-
-    }
-
-    @Override
-    public String getPwd() {
         return null;
     }
 
@@ -78,6 +68,12 @@ public abstract class SystemUser implements IUser {
     }
 
     @Override
+    public void addRole(String role) {
+
+    }
+
+
+    @Override
     public LanguageCode getDefaultLang() {
         return LanguageCode.ENG;
     }
@@ -124,7 +120,7 @@ public abstract class SystemUser implements IUser {
     }
 
     @Override
-    public void setRegDate(Date date) {
+    public void setRegDate(ZonedDateTime date) {
 
     }
 
@@ -136,15 +132,6 @@ public abstract class SystemUser implements IUser {
 
     }
 
-    @Override
-    public String getExtKey() {
-        return "";
-    }
-
-    @Override
-    public void setExtKey(String extKey) {
-
-    }
 
     @Override
     public List<Long> getSubstitutes() {

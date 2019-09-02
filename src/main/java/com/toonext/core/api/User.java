@@ -5,12 +5,12 @@ import com.toonext.EnvConst;
 import com.toonext.core.api.constants.UserStatusCode;
 import com.toonext.domain.user.IUser;
 import com.toonext.localization.constants.LanguageCode;
+import com.toonext.util.StringUtil;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 import java.security.Principal;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class User implements IUser, Principal {
@@ -18,7 +18,7 @@ public class User implements IUser, Principal {
     private long id;
 
     @ColumnName("reg_date")
-    protected ZonedDateTime regDate;
+    private ZonedDateTime regDate;
 
     @ColumnName("last_mod_date")
     private ZonedDateTime lastModifiedDate;
@@ -87,7 +87,11 @@ public class User implements IUser, Principal {
     }
 
     public String getTitle() {
-        return title;
+        if (title == null){
+            return login;
+        }else {
+            return title;
+        }
     }
 
     public void setTitle(String title) {
@@ -156,22 +160,13 @@ public class User implements IUser, Principal {
 
     @Override
     public String getPwdHash() {
-        return null;
-    }
-
-    @Override
-    public void setPwdHash(String pwdHash) {
-
-    }
-
-    @Override
-    public String getPwd() {
-        return null;
+        return pwdHash;
     }
 
     @Override
     public void setPwd(String value) {
-
+        pwd = value;
+        pwdHash = StringUtil.encode(pwd);
     }
 
     @Override
@@ -180,8 +175,8 @@ public class User implements IUser, Principal {
     }
 
     @Override
-    public void setLogin(String string) {
-
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     @Override
@@ -191,7 +186,7 @@ public class User implements IUser, Principal {
 
     @Override
     public void setAuthorized(boolean isAuthorized) {
-
+        this.isAuthorized = isAuthorized;
     }
 
     @Override
@@ -216,12 +211,16 @@ public class User implements IUser, Principal {
 
     @Override
     public List<String> getRoles() {
-        return null;
+        return roles;
     }
 
     @Override
     public void setRoles(List<String> allRoles) {
+        this.roles = roles;
+    }
 
+    public void addRole(String role) {
+        roles.add(role);
     }
 
     @Override
@@ -260,18 +259,8 @@ public class User implements IUser, Principal {
     }
 
     @Override
-    public void setRegDate(Date date) {
-
-    }
-
-    @Override
-    public String getExtKey() {
-        return null;
-    }
-
-    @Override
-    public void setExtKey(String extKey) {
-
+    public void setRegDate(ZonedDateTime date) {
+        regDate = date;
     }
 
     @Override

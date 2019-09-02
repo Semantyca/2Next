@@ -87,8 +87,6 @@ public class AppEnv {
         return  appName;
     }
 
-
-
     public String getDefaultPage() {
         return defaultPage;
     }
@@ -96,6 +94,5 @@ public class AppEnv {
     public void setDefaultPage(String defaultPage) {
         this.defaultPage = defaultPage;
     }
-
 
 }

@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -32,6 +33,7 @@ public class StringUtil {
         Matcher matcher = pattern.matcher(value);
         return matcher.matches();
     }
+
 
 
     public static String getRndText() {
@@ -126,5 +128,21 @@ public class StringUtil {
         return "";
     }
 
+
+    public static String encode(String passwordToHash) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(passwordToHash.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++){
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            Lg.exception(e);
+        }
+        return null;
+    }
 
 }
