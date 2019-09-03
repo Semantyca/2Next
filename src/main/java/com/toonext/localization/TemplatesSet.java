@@ -3,7 +3,7 @@ package com.toonext.localization;
 
 import com.toonext.EnvConst;
 
-import com.toonext.Environment;
+import com.toonext.GlobalEnv;
 import com.toonext.localization.constants.LanguageCode;
 import com.toonext.log.Lg;
 import com.toonext.messaging.MessagingType;
@@ -34,7 +34,7 @@ public class TemplatesSet {
 
     public static ST getRenderedTemplate(String m) {
         ST rawBody = new ST(m, '$', '$');
-        rawBody.add("orgname", Environment.orgName);
+        rawBody.add("orgname", GlobalEnv.orgName);
         rawBody.add("appname", EnvConst.APP_ID);
         return rawBody;
     }

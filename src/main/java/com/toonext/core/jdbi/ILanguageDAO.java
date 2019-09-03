@@ -23,30 +23,30 @@ public interface ILanguageDAO {
     @RegisterColumnMapper(LanguageMapper.class)
     List<Language> findAllActivated();
 
-    @SqlUpdate("CREATE TABLE public._langs\n" +
-            "(\n" +
-            "  id uuid DEFAULT uuid_generate_v4(),\n" +
-            "  code character varying(7),\n" +
-            "  is_cyr boolean,\n" +
-            "  is_on boolean,\n" +
-            "  last_mod_date timestamp with time zone NOT NULL,\n" +
-            "  last_mod_user bigint NOT NULL,\n" +
-            "  loc_name jsonb,\n" +
-            "  identifier character varying(64),\n" +
-            "  stance integer,\n" +
-            "  reg_date timestamp with time zone NOT NULL,\n" +
-            "  title character varying(255),\n" +
-            "  author bigint NOT NULL,\n" +
-            "  CONSTRAINT _langs_pkey PRIMARY KEY (id),\n" +
-            "  CONSTRAINT fk__langs_author FOREIGN KEY (author)\n" +
-            "      REFERENCES public._users (id) MATCH SIMPLE\n" +
-            "      ON UPDATE NO ACTION ON DELETE NO ACTION,\n" +
-            "  CONSTRAINT _langs_code_key UNIQUE (code)\n" +
+    @SqlUpdate("CREATE TABLE public._langs" +
+            "(" +
+            "  id uuid DEFAULT uuid_generate_v4()," +
+            "  code character varying(7)," +
+            "  is_cyr boolean," +
+            "  is_on boolean," +
+            "  last_mod_date timestamp with time zone NOT NULL," +
+            "  last_mod_user bigint NOT NULL," +
+            "  loc_name jsonb," +
+            "  identifier character varying(64)," +
+            "  stance integer," +
+            "  reg_date timestamp with time zone NOT NULL," +
+            "  title character varying(255)," +
+            "  author bigint NOT NULL," +
+            "  CONSTRAINT _langs_pkey PRIMARY KEY (id)," +
+            "  CONSTRAINT fk__langs_author FOREIGN KEY (author)" +
+            "      REFERENCES public._users (id) MATCH SIMPLE" +
+            "      ON UPDATE NO ACTION ON DELETE NO ACTION," +
+            "  CONSTRAINT _langs_code_key UNIQUE (code)" +
             ");")
     void createTable();
 
 
-    @SqlUpdate("INSERT INTO public._langs(code, is_cyr, is_on, last_mod_date, last_mod_user, \n" +
+    @SqlUpdate("INSERT INTO public._langs(code, is_cyr, is_on, last_mod_date, last_mod_user," +
             "loc_name, identifier, stance, reg_date, title, author)VALUES (?,?,?,?,?,?::json,?,?,?,?,?);")
     @GetGeneratedKeys("id")
     UUID insert(LanguageCode code, boolean isCyrillic, boolean isOn, ZonedDateTime dateTime, long user, @BindJson("loc_name") String locName, String name, int stance,

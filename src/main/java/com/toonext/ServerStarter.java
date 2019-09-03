@@ -38,6 +38,7 @@ import java.util.Locale;
 
 public abstract class ServerStarter<C extends PrimaryConfiguration> extends Application<C> {
     private static boolean isDevMode = true;
+    private  Jdbi jdbi;
 
     @Override
     public String getName() {
@@ -70,7 +71,7 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
         JerseyEnvironment restEnv = environment.jersey();
         restEnv.setUrlPattern("/api/*");
         DataSourceFactory sourceFactory = config.getDataSourceFactory();
-        Jdbi jdbi = Jdbi.create(sourceFactory.getUrl(),sourceFactory.getUser(),sourceFactory.getPassword());
+        jdbi = Jdbi.create(sourceFactory.getUrl(),sourceFactory.getUser(),sourceFactory.getPassword());
         jdbi.installPlugin(new PostgresPlugin());
         jdbi.installPlugin(new SqlObjectPlugin());
         restEnv.register(new NBViolationExceptionMapper());
@@ -99,6 +100,10 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
         restEnv.register(new JsonInformativeExceptionMapper());
         Cors.insecure(environment);
 
+    }
+
+    public Jdbi getJdbi() {
+        return jdbi;
     }
 
     public static  boolean isDevMode() {

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Environment {
+public class GlobalEnv {
 
     public static Date startTime;
     public static String orgName;

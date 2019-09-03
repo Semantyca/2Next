@@ -79,7 +79,7 @@ public class UserSession {
 
     @JsonIgnore
     public File getTmpDir() {
-        File userTmpDir = new File(Environment.tmpDir + File.separator + getUser().getUserID());
+        File userTmpDir = new File(GlobalEnv.tmpDir + File.separator + getUser().getUserID());
         if (!userTmpDir.exists()) {
             userTmpDir.mkdir();
         }

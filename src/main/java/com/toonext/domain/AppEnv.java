@@ -2,7 +2,7 @@ package com.toonext.domain;
 
 
 import com.toonext.EnvConst;
-import com.toonext.Environment;
+import com.toonext.GlobalEnv;
 import com.toonext.dataengine.IDatabase;
 import com.toonext.log.Lg;
 import org.apache.commons.lang3.ArrayUtils;
@@ -26,14 +26,14 @@ public class AppEnv {
        // appCode = (String) ReflectionUtil.getAppConstValue(appName, "CODE");
         this.dataBase = db;
 
-        if (Environment.isDevMode()) {
+        if (GlobalEnv.isDevMode()) {
             if (EnvConst.ADMINISTRATOR_MODULE_NAME.equals(appName)) {
-                modulesPath = Environment.getKernelDir() + "modules";
-                webResPath = Environment.getKernelDir() + EnvConst.WEB_APPS_FOLDER + File.separator + appName;
+                modulesPath = GlobalEnv.getKernelDir() + "modules";
+                webResPath = GlobalEnv.getKernelDir() + EnvConst.WEB_APPS_FOLDER + File.separator + appName;
             } else if (ArrayUtils.contains(EnvConst.OFFICEFRAME_APPLICATION_MODULES, appName)) {
-                modulesPath = Environment.getOfficeFrameDir() + "modules";
-                webResPath = Environment.getOfficeFrameDir() + EnvConst.WEB_APPS_FOLDER + File.separator + appName;
-                Lg.debug("Server using  \"" + appName + "\" as external module (path=" + Environment.getOfficeFrameDir() + ")");
+                modulesPath = GlobalEnv.getOfficeFrameDir() + "modules";
+                webResPath = GlobalEnv.getOfficeFrameDir() + EnvConst.WEB_APPS_FOLDER + File.separator + appName;
+                Lg.debug("Server using  \"" + appName + "\" as external module (path=" + GlobalEnv.getOfficeFrameDir() + ")");
             } else {
                 modulesPath = "modules";
                 webResPath = EnvConst.WEB_APPS_FOLDER + File.separator + appName;

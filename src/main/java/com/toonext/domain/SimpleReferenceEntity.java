@@ -1,6 +1,5 @@
 package com.toonext.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.toonext.localization.constants.LanguageCode;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
@@ -13,38 +12,19 @@ public class SimpleReferenceEntity extends AppEntity<UUID> {
     @ColumnName("loc_name")
     private Map<LanguageCode, String> locName = new HashMap<LanguageCode, String>();
 
-
-    @JsonIgnore
-    @Override
-    public String toString() {
-        UUID id = UUID.fromString(getId().toString());
-        return id.toString() + ", name=" + identifier;
+    public void setLocName(Map<LanguageCode, String> locName) {
+        this.locName = locName;
     }
 
     public Map<LanguageCode, String> getLocName() {
         return locName;
     }
 
-    public void setLocName(Map<LanguageCode, String> locName) {
-        this.locName = locName;
-    }
-
-    public String getLocName(LanguageCode lang) {
-        try {
-            String val = locName.get(lang);
-            if (val != null && (!val.isEmpty())) {
-                return val;
-            } else {
-                return identifier;
-            }
-        } catch (Exception e) {
-            return identifier;
-        }
-    }
 
     public void setLocName(String val, LanguageCode languageCode) {
         this.locName.put(languageCode, val);
     }
+
 
 
 
