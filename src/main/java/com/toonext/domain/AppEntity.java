@@ -10,7 +10,7 @@ import org.jdbi.v3.core.mapper.reflect.ColumnName;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-@JsonPropertyOrder({"id", "title", "regDate", "wasRead", "url", "authorId", "editable", "isNew"})
+@JsonPropertyOrder({"id", "title", "regDate", "wasRead", "url", "author", "editable", "isNew"})
 public abstract class AppEntity<K> implements IAppEntity<K> {
 
     protected K id;

@@ -3,7 +3,8 @@ package com.toonext.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.toonext.domain.IAppEntity;
-import com.toonext.domain.ISecureAppEntity;
+import com.toonext.domain.SecureAppEntity;
+import com.toonext.domain.embedded.Reader;
 import com.toonext.domain.user.AnonymousUser;
 import com.toonext.domain.user.SuperUser;
 import com.toonext.domain.user.UndefinedUser;
@@ -23,7 +24,7 @@ public class ACL {
 
 
     public ACL(IAppEntity<UUID> e) {
-        ISecureAppEntity<UUID> entity = (ISecureAppEntity<UUID>) e;
+        SecureAppEntity entity = (SecureAppEntity) e;
 
         Map<Long, Reader> readerMap = entity.getReaders();
         if (readerMap != null) {

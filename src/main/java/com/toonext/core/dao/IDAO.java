@@ -1,11 +1,12 @@
 package com.toonext.core.dao;
 
 public interface IDAO {
+    String SCHEMA = "public";
 
-    final static String MANDATORY_REF_DDL_PIECE =
+    String MANDATORY_REF_DDL_PIECE =
             "  id uuid DEFAULT uuid_generate_v4()," +
             "  loc_name jsonb," +
-            "  identifier character varying(64)," +
+            "  identifier character varying(64) UNIQUE," +
             "  reg_date timestamp with time zone NOT NULL," +
             "  title character varying(255)," +
             "  author bigint NOT NULL," +

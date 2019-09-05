@@ -1,10 +1,8 @@
-package com.toonext.dto;
+package com.toonext.domain.embedded;
 
 import java.util.Date;
 
-
 public class Reader {
-
 
     private boolean wasRead;
 
