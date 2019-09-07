@@ -22,8 +22,8 @@ public interface IUserDAO {
     @RegisterFieldMapper(User.class)
     User findById(@Bind("id") long login);
 
-    @SqlUpdate("\n" +
-            "CREATE TABLE public._users" +
+    @SqlUpdate(
+            "CREATE TABLE_FULL_NAME public._users" +
             "(" +
             "  id SERIAL PRIMARY KEY," +
             "  login character varying(100) UNIQUE," +
@@ -63,7 +63,7 @@ public interface IUserDAO {
 
 
 
-    @SqlUpdate("DROP TABLE public._langs CASCADE;")
+    @SqlUpdate("DROP TABLE_FULL_NAME public._langs CASCADE;")
     void drop();
 
 }

@@ -4,10 +4,13 @@ package com.toonext.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.toonext.EnvConst;
+import com.toonext.UserSession;
+import com.toonext.domain.IAppEntity;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.UUID;
 
 @JsonPropertyOrder({"type", "title", "pageName", "payload"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -65,13 +68,25 @@ public class Outcome {
         return this;
     }
 
+    public Outcome addPayload(IAppEntity entity) {
+        this.payload.put(entity.getEntityType(), entity);
+        return this;
+    }
+
+    public Outcome addPayload(UserSession session) {
+        this.payload.put("user_session", session);
+        return this;
+    }
+
+    public Outcome addPayload(UUID uuid) {
+        this.payload.put("uuid", uuid);
+        return this;
+    }
 
     public String toString() {
         return "type=" + type + ", title=" + title + " " + payload;
     }
 
-    public Outcome addPayload(Object object) {
-        this.payload.put(object.getClass().getSimpleName().toLowerCase(), object);
-        return this;
-    }
+
+
 }

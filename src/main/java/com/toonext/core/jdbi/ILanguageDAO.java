@@ -19,11 +19,11 @@ public interface ILanguageDAO {
     @RegisterColumnMapper(LanguageMapper.class)
     List<Language> findAll();
 
-    @SqlQuery("SELECT * FROM public._langs as l WHERE l.is_on = TRUE;")
+    @SqlQuery("SELECT * FROM public._langs as l WHERE l.is_on = TRUE")
     @RegisterColumnMapper(LanguageMapper.class)
     List<Language> findAllActivated();
 
-    @SqlUpdate("CREATE TABLE public._langs" +
+    @SqlUpdate("CREATE TABLE_FULL_NAME public._langs" +
             "(" +
             "  id uuid DEFAULT uuid_generate_v4()," +
             "  code character varying(7)," +
@@ -58,7 +58,7 @@ public interface ILanguageDAO {
     @SqlQuery("select name from something where id = :id")
     String findNameById(@Bind("id") int id);
 
-    @SqlUpdate("DROP TABLE public._langs CASCADE;")
+    @SqlUpdate("DROP TABLE_FULL_NAME public._langs CASCADE;")
     void drop();
 
 }
