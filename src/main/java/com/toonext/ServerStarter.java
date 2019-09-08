@@ -1,6 +1,8 @@
 package com.toonext;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -52,6 +54,10 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
         om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         om.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         om.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
+        om.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.ANY);
+
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
     }
 

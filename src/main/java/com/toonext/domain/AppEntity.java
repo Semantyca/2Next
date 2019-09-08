@@ -3,19 +3,18 @@ package com.toonext.domain;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.toonext.domain.user.IUser;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-@JsonPropertyOrder({"id", "title", "regDate", "wasRead", "url", "author", "editable", "isNew"})
 public abstract class AppEntity<K> implements IAppEntity<K> {
 
     protected K id;
 
-    protected String identifier;
+    @JsonIgnore
+    private String identifier = "";
 
     protected long author;
 
@@ -34,7 +33,7 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
 
     private boolean deleted;
 
-    private String title;
+    private String title = "";
 
     @Override
     public K getId() {
@@ -50,9 +49,10 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         this.identifier = identifier;
     }
 
+    @JsonGetter
     public String getIdentifier() {
         if (identifier != null) {
-            return identifier.toString();
+            return identifier;
         } else {
             return id.toString();
         }
@@ -121,11 +121,6 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         return id.toString() + "," + this.getEntityType();
     }
 
-
-    public String getURL() {
-        return getIdentifier();
-    }
-    
     @Override
     public String getTitle() {
         return title;

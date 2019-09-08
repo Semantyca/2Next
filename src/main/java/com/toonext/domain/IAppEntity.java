@@ -25,8 +25,6 @@ public interface IAppEntity<K> extends ISimpleAppEntity<K> {
 
     String getTitle();
 
-    String getURL();
-
     void setTitle(String title);
 
     default String getEntityType() {

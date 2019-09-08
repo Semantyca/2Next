@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Outcome {
     protected OutcomeType type = OutcomeType.DEFAULT;
     protected String title = EnvConst.APP_ID;
-    protected String pageName;
+    protected String pageName = "";
     protected LinkedHashMap<String, Object> payload = new LinkedHashMap<>();
 
     public Outcome() {
@@ -73,6 +73,12 @@ public class Outcome {
         return this;
     }
 
+    public Outcome addPayload(ViewPage view) {
+        this.payload.put("view", view);
+        return this;
+    }
+
+
     public Outcome addPayload(UserSession session) {
         this.payload.put("user_session", session);
         return this;
@@ -86,7 +92,5 @@ public class Outcome {
     public String toString() {
         return "type=" + type + ", title=" + title + " " + payload;
     }
-
-
 
 }
