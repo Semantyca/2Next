@@ -9,15 +9,11 @@ public interface IAppEntity<K> extends ISimpleAppEntity<K> {
 
     long getAuthor();
 
-    void setAuthor(IUser user);
-
     void setLastModifier(IUser user);
 
     ZonedDateTime getRegDate();
 
     boolean isEditable();
-
-    void setEditable(boolean isEditable);
 
     default boolean wasRead(){
         return true;

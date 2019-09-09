@@ -1,35 +1,38 @@
 package com.toonext.domain;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import com.toonext.domain.user.IUser;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
+import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+@JsonPropertyOrder({"entityType", "identifier", "title", "regDate", "author", "editable", "isNew", "isWasRead"})
 public abstract class AppEntity<K> implements IAppEntity<K> {
 
+    @JsonIgnore
     protected K id;
 
-    @JsonIgnore
-    private String identifier = "";
+    private String identifier;
 
     protected long author;
 
     @ColumnName("reg_date")
+    @JsonSetter("reg_date")
     private ZonedDateTime regDate;
 
     @ColumnName("last_mod_date")
+    @JsonSetter("last_mod_date")
     private ZonedDateTime lastModifiedDate = ZonedDateTime.now();
 
     @ColumnName("last_mod_user")
+    @JsonSetter("last_mod_user")
     private Long lastModifier;
 
     private boolean editable = true;
 
-    private boolean wasRead = true;
+    private boolean wasRead;
 
     private boolean deleted;
 
@@ -46,16 +49,15 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
     }
 
     public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+        if (identifier != null) {
+            this.identifier = identifier;
+        }else{
+            this.identifier = id.toString();
+        }
     }
 
-    @JsonGetter
     public String getIdentifier() {
-        if (identifier != null) {
-            return identifier;
-        } else {
-            return id.toString();
-        }
+         return identifier;
     }
 
     public void setAuthor(long author) {
@@ -67,20 +69,9 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         return author;
     }
 
-    @JsonIgnore
     @Override
-    public void setAuthor(IUser user) {
-        /*User u = new User();
-        u.setId(user.getId());*/
-       // author = u;
-        regDate = ZonedDateTime.now();
-    }
-
-    @Override
-    @JsonGetter
     public ZonedDateTime getRegDate() {
         return regDate;
-
     }
 
     @JsonIgnore
@@ -88,6 +79,7 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         this.regDate = regDate;
     }
 
+    @JsonIgnore
     public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
@@ -100,6 +92,7 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         return lastModifier;
     }
 
+    @JsonIgnore
     public void setLastModifier(Long lastModifier) {
         this.lastModifier = lastModifier;
     }
@@ -132,7 +125,7 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
     }
 
     @Override
-    @JsonProperty("isNew")
+    @JsonIgnore
     public boolean isNew() {
         return id == null;
     }
@@ -142,17 +135,22 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         return editable;
     }
 
-    @Override
-    public void setEditable(boolean editable) {
-        this.editable = editable;
+    public void setEditable(int isEditable) {
+        if (isEditable == 1) {
+            editable = true;
+        }
+        editable = false;
     }
 
+    @JsonProperty("isWasRead")
     public boolean isWasRead() {
         return wasRead;
     }
 
-    public void setWasRead(boolean wasRead) {
-        this.wasRead = wasRead;
+    public void setWasRead(Timestamp readTime) {
+        if (readTime != null) {
+            wasRead = true;
+        }
     }
 
     public boolean isDeleted() {

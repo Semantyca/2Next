@@ -1,7 +1,6 @@
 package com.toonext.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.toonext.core.api.User;
 import com.toonext.domain.embedded.Reader;
 import com.toonext.domain.user.IUser;
 
@@ -43,12 +42,6 @@ public abstract class SecureAppEntity extends AppEntity<UUID> {
     }
 
     public void addReadersList(List<Long> readers) {
-        for (Long reader : readers) {
-            addReader(reader);
-        }
-    }
-
-    public void addReadersList(Set<Long> readers) {
         for (Long reader : readers) {
             addReader(reader);
         }
@@ -99,23 +92,6 @@ public abstract class SecureAppEntity extends AppEntity<UUID> {
     public void addEditors(List<Long> r) {
         addReadersList(r);
         editors.addAll(r);
-    }
-
-    public void resetReadersEditors() {
-        editors.clear();
-        readers.clear();
-    }
-
-    public void resetEditors() {
-        editors.clear();
-    }
-
-
-    public void setAuthor(User user) {
-        super.setAuthor(user);
-        if (super.getAuthor() > 0) {
-            addReaderEditor(user);
-        }
     }
 
     @Override
