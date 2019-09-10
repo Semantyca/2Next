@@ -21,7 +21,7 @@ public class CustomAuthenticator implements Authenticator<CustomCredentials, IUs
     @Override
     public Optional<IUser> authenticate(CustomCredentials credentials) throws AuthenticationException {
         IUser authenticatedUser = null;
-        if (credentials.getUserId() == 0) {
+        if (!credentials.isValid()) {
             authenticatedUser = new AnonymousUser();
         } else {
             IUser user = userDAO.findById(credentials.getUserId());

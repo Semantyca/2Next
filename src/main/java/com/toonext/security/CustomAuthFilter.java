@@ -8,7 +8,6 @@ import org.jdbi.v3.core.Jdbi;
 
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.PreMatching;
 import java.security.Principal;
@@ -25,31 +24,29 @@ public class CustomAuthFilter<P extends Principal> extends AuthFilter<CustomCred
 
 
   public void filter(ContainerRequestContext requestContext) {
-
       CustomCredentials credentials = getCredentials(requestContext);
-      if (!this.authenticate(requestContext, credentials, "custom")) {
-        throw new WebApplicationException(this.unauthorizedHandler.buildResponse(this.prefix, this.realm));
-      }
+      authenticate(requestContext, credentials, "custom");
   }
 
 
   private CustomCredentials getCredentials(ContainerRequestContext requestContext) {
     CustomCredentials credentials = new CustomCredentials();
-    ITokenDAO dao = dbi.onDemand(ITokenDAO.class);
     try {
       String tokenString = requestContext.getHeaderString("Authorization");
-      Token token = dao.findToken(tokenString.substring(6));
-      if (token != null) {
-        credentials.setToken(token.getToken());
-        credentials.setUserId(token.getUserId());
+      if (tokenString != null) {
+        ITokenDAO dao = dbi.onDemand(ITokenDAO.class);
+        Token token = dao.findToken(tokenString.substring(6));
+        if (token != null) {
+          credentials.setToken(token.getToken());
+          credentials.setUserId(token.getUserId());
+          credentials.setValid(true);
+        }
+      }else{
+        Lg.warning("There is no token trace");
       }
     } catch (Exception e) {
       Lg.exception(e);
-      credentials.setToken("0");
-      credentials.setUserId(Long.valueOf(0));
     }
-
-
     return credentials;
   }
 

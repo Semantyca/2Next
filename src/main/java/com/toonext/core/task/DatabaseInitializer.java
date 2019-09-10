@@ -56,7 +56,7 @@ public class DatabaseInitializer extends CommonTask {
         IUser[] systemUsers = {new SuperUser(), new AnonymousUser()};
         for (IUser user: systemUsers) {
             try {
-                userDAO.insert(user.getId(), user.getUserName(), DEFAULT_PASSWORD, "", ZonedDateTime.now(), user.getId(), ZonedDateTime.now(), user.getUserName(), user.getId());
+                userDAO.insert(user.getId(), user.getLogin(), DEFAULT_PASSWORD, "", ZonedDateTime.now(), user.getId(), ZonedDateTime.now(), user.getName(), user.getId());
             } catch (UnableToExecuteStatementException e) {
                 logDatabaseException(e, "23505");
             }

@@ -39,7 +39,7 @@ public class UserSession {
 
     @Override
     public String toString() {
-        return user.getUserID() + ", lang=" + lang;
+        return user.getName() + ", lang=" + lang;
     }
 
     public int getPageSize() {
@@ -79,7 +79,7 @@ public class UserSession {
 
     @JsonIgnore
     public File getTmpDir() {
-        File userTmpDir = new File(GlobalEnv.tmpDir + File.separator + getUser().getUserID());
+        File userTmpDir = new File(GlobalEnv.tmpDir + File.separator + getUser().getName());
         if (!userTmpDir.exists()) {
             userTmpDir.mkdir();
         }

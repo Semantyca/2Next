@@ -36,17 +36,6 @@ public abstract class SystemUser implements IUser {
     }
 
     @Override
-    public abstract String getUserID();
-
-    @Override
-    public abstract String getUserName();
-
-    @Override
-    public void setUserName(String name) {
-
-    }
-
-    @Override
     public boolean isSuperUser() {
         return false;
     }
@@ -112,11 +101,6 @@ public abstract class SystemUser implements IUser {
     @Override
     public void setEmail(String value) {
 
-    }
-
-    @Override
-    public String getSlack() {
-        return null;
     }
 
     @Override

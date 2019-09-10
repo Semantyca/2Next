@@ -31,7 +31,6 @@ public class PopulateTestUsers extends Task {
         for (String userName: testUsers) {
             ZonedDateTime now = ZonedDateTime.now();
             User user = new User();
-            user.setUserName(userName);
             user.setPwd(DEFAULT_PASSWORD);
             user.setDefaultLang(LanguageCode.ENG);
             user.setLogin(userName);

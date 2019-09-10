@@ -1,6 +1,7 @@
 package com.toonext.core.api;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.toonext.EnvConst;
 import com.toonext.core.api.constants.UserStatusCode;
 import com.toonext.domain.user.IUser;
@@ -190,21 +191,6 @@ public class User implements IUser, Principal {
     }
 
     @Override
-    public String getUserID() {
-        return Long.toString(id);
-    }
-
-    @Override
-    public String getUserName() {
-        return login;
-    }
-
-    @Override
-    public void setUserName(String name) {
-
-    }
-
-    @Override
     public boolean isSuperUser() {
         return false;
     }
@@ -254,16 +240,12 @@ public class User implements IUser, Principal {
     }
 
     @Override
-    public String getSlack() {
-        return null;
-    }
-
-    @Override
     public void setRegDate(ZonedDateTime date) {
         regDate = date;
     }
 
     @Override
+    @JsonIgnore
     public List<Long> getSubstitutes() {
         return null;
     }
@@ -272,7 +254,6 @@ public class User implements IUser, Principal {
     public void setSubstitutes(List<Long> substitutes) {
 
     }
-
 
     @Override
     public String getName() {

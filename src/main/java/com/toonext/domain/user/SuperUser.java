@@ -13,21 +13,6 @@ public class SuperUser extends SystemUser {
     public final static String USER_NAME = "supervisor";
 
     @Override
-    public String getUserID() {
-        return USER_NAME;
-    }
-
-    @Override
-    public String getUserName() {
-        return USER_NAME;
-    }
-
-    @Override
-    public void setUserName(String name) {
-
-    }
-
-    @Override
     public List<String> getRoles() {
         return new ArrayList<>(Arrays.asList(ServerRole.AUTHENTICATED));
     }

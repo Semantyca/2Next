@@ -27,12 +27,6 @@ public interface IUser extends ISimpleAppEntity<Long>, Principal {
 
     void setAuthorized(boolean isAuthorized);
 
-    String getUserID();
-
-    String getUserName();
-
-    void setUserName(String name);
-
     boolean isSuperUser();
 
     @JsonIgnore
@@ -57,8 +51,6 @@ public interface IUser extends ISimpleAppEntity<Long>, Principal {
     String getEmail();
 
     void setEmail(String value);
-
-    String getSlack();
 
     void setRegDate(ZonedDateTime date);
 
