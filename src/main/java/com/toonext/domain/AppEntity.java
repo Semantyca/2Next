@@ -70,6 +70,7 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
     }
 
     @Override
+    @JsonGetter
     public ZonedDateTime getRegDate() {
         return regDate;
     }

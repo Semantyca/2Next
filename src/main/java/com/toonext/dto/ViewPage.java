@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"count", "pageNum", "maxPage", "pageSize", "result"})
+@JsonPropertyOrder({"count", "pageNum", "maxPage", "pageSize", "keyword", "result"})
 public class ViewPage {
     private List result;
     private long count;
     private int maxPage;
     private int pageNum;
     private int pageSize;
+    private String keyword;
 
 
     public ViewPage(List result, long count, int maxPage, int pageNum, int pageSize) {
@@ -24,6 +25,16 @@ public class ViewPage {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
     }
+
+    public ViewPage(List result, long count, int maxPage, int pageNum, int pageSize, String keyword) {
+        this.result = result;
+        this.count = count;
+        this.maxPage = maxPage;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.keyword = keyword;
+    }
+
 
     public ViewPage() {
         this(new ArrayList(), 0, 1, 1, EnvConst.DEFAULT_PAGE_SIZE);
@@ -65,4 +76,7 @@ public class ViewPage {
         return pageSize;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
 }

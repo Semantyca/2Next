@@ -29,6 +29,9 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.postgres.PostgresPlugin;
@@ -41,6 +44,7 @@ import java.util.Locale;
 public abstract class ServerStarter<C extends PrimaryConfiguration> extends Application<C> {
     private static boolean isDevMode = true;
     private  Jdbi jdbi;
+    private RestHighLevelClient elasticClient;
 
     @Override
     public String getName() {
@@ -80,6 +84,11 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
         jdbi = Jdbi.create(sourceFactory.getUrl(),sourceFactory.getUser(),sourceFactory.getPassword());
         jdbi.installPlugin(new PostgresPlugin());
         jdbi.installPlugin(new SqlObjectPlugin());
+        elasticClient = new RestHighLevelClient(
+                RestClient.builder(
+                        new HttpHost(config.getElastic().getHost(), config.getElastic().getPort(), "http")));
+
+
         restEnv.register(new NBViolationExceptionMapper());
         restEnv.register(new SessionResource(jdbi, validator));
         restEnv.register(new UserResource(jdbi));
@@ -110,6 +119,10 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
 
     public Jdbi getJdbi() {
         return jdbi;
+    }
+
+    public RestHighLevelClient getFTEngineClient() {
+        return elasticClient;
     }
 
     public static  boolean isDevMode() {

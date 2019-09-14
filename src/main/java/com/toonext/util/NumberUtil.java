@@ -38,4 +38,13 @@ public class NumberUtil {
         return pageNumMinusOne * pageSize;
     }
 
+    public static int stringToInt(String d, int defaultValue) {
+        try {
+            d = d.replaceAll("\\s+", "").replaceAll(",", "").replaceAll("/\\D/g", "").replaceAll("\\p{IsCyrillic}", "");
+            return Integer.parseInt(d);
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
 }
