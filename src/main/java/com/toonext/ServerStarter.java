@@ -6,10 +6,6 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.semantyca.admin.resources.HomePageResource;
-import com.semantyca.admin.resources.LanguageResource;
-import com.semantyca.admin.resources.SessionResource;
-import com.semantyca.admin.resources.UserResource;
 import com.toonext.core.health.TemplateHealthCheck;
 import com.toonext.core.jdbi.IUserDAO;
 import com.toonext.core.task.DatabaseInitializer;
@@ -43,8 +39,9 @@ import java.util.Locale;
 
 public abstract class ServerStarter<C extends PrimaryConfiguration> extends Application<C> {
     private static boolean isDevMode = true;
-    private  Jdbi jdbi;
-    private RestHighLevelClient elasticClient;
+    public Jdbi jdbi;
+    public RestHighLevelClient elasticClient;
+    public Validator validator;
 
     @Override
     public String getName() {
@@ -90,9 +87,6 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
 
 
         restEnv.register(new NBViolationExceptionMapper());
-        restEnv.register(new SessionResource(jdbi, validator));
-        restEnv.register(new UserResource(jdbi));
-        restEnv.register(new LanguageResource(jdbi));
 
         environment.admin().addTask(new DatabaseInitializer(jdbi));
         environment.admin().addTask(new PopulateTestUsers(jdbi));
@@ -109,7 +103,7 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
         restEnv.register(RolesAllowedDynamicFeature.class);
         restEnv.register(new AuthValueFactoryProvider.Binder<>(IUser.class));
 
-        restEnv.register(new HomePageResource());
+
    //     environment.jersey().register(new JsonProcessingExceptionMapper(true));
      //   environment.jersey().register(new DefaultExceptionMapper());
         restEnv.register(new JsonInformativeExceptionMapper());
@@ -117,13 +111,6 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
 
     }
 
-    public Jdbi getJdbi() {
-        return jdbi;
-    }
-
-    public RestHighLevelClient getFTEngineClient() {
-        return elasticClient;
-    }
 
     public static  boolean isDevMode() {
         return isDevMode;
