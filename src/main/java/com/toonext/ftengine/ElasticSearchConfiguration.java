@@ -2,8 +2,8 @@ package com.toonext.ftengine;
 
 public class ElasticSearchConfiguration {
 
-    private String host;
-    private int port;
+    private String host = "localhost";
+    private int port = 9200;
 
     public String getHost() {
         return host;
