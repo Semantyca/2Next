@@ -31,7 +31,7 @@ public interface ITokenDAO {
 
 
     @SqlUpdate("\n" +
-            "CREATE TABLE_FULL_NAME public._tokens" +
+            "CREATE LABELS_TABLE_FULL_NAME public._tokens" +
             "(" +
             "  id SERIAL PRIMARY KEY," +
             "  user_id bigint NOT NULL," +

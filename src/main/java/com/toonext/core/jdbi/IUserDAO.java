@@ -23,7 +23,7 @@ public interface IUserDAO {
     User findById(@Bind("id") long login);
 
     @SqlUpdate(
-            "CREATE TABLE_FULL_NAME public._users" +
+            "CREATE LABELS_TABLE_FULL_NAME public._users" +
             "(" +
             "  id SERIAL PRIMARY KEY," +
             "  login character varying(100) UNIQUE," +
@@ -63,7 +63,7 @@ public interface IUserDAO {
 
 
 
-    @SqlUpdate("DROP TABLE_FULL_NAME public._langs CASCADE;")
+    @SqlUpdate("DROP LABELS_TABLE_FULL_NAME public._langs CASCADE;")
     void drop();
 
 }
