@@ -19,15 +19,12 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
     protected long author;
 
     @ColumnName("reg_date")
-    @JsonSetter("reg_date")
     private ZonedDateTime regDate;
 
     @ColumnName("last_mod_date")
-    @JsonSetter("last_mod_date")
     private ZonedDateTime lastModifiedDate = ZonedDateTime.now();
 
     @ColumnName("last_mod_user")
-    @JsonSetter("last_mod_user")
     private Long lastModifier;
 
     private boolean editable = true;

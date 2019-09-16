@@ -63,12 +63,12 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
 
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
 
-        bootstrap.addBundle(new SwaggerBundle<PrimaryConfiguration>() {
+        /*bootstrap.addBundle(new SwaggerBundle<PrimaryConfiguration>() {
             @Override
             protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(PrimaryConfiguration configuration) {
                 return configuration.getSwagger();
             }
-        });
+        });*/
     }
 
     public void run(C config, Environment environment) {

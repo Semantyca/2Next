@@ -12,7 +12,6 @@ import java.util.UUID;
 public class SimpleReferenceEntity extends AppEntity<UUID> {
 
     @ColumnName("loc_name")
-    @JsonSetter("loc_name")
     private Map<LanguageCode, String> locName = new HashMap<LanguageCode, String>();
 
     public void setLocName(Map<LanguageCode, String> locName) {
