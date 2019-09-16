@@ -25,6 +25,8 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -60,6 +62,13 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
         om.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.ANY);
 
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
+
+        bootstrap.addBundle(new SwaggerBundle<PrimaryConfiguration>() {
+            @Override
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(PrimaryConfiguration configuration) {
+                return configuration.getSwagger();
+            }
+        });
     }
 
     public void run(C config, Environment environment) {

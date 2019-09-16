@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.toonext.ftengine.ElasticSearchConfiguration;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -18,6 +19,9 @@ public class PrimaryConfiguration extends Configuration {
     private DataSourceFactory database = new DataSourceFactory();
 
     private ElasticSearchConfiguration elastic = new ElasticSearchConfiguration();
+
+    @JsonProperty("swagger")
+    public SwaggerBundleConfiguration swagger;
 
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory factory) {
@@ -37,6 +41,14 @@ public class PrimaryConfiguration extends Configuration {
     @JsonProperty("elastic")
     public void setElastic(ElasticSearchConfiguration elastic) {
         this.elastic = elastic;
+    }
+
+    public SwaggerBundleConfiguration getSwagger() {
+        return swagger;
+    }
+
+    public void setSwagger(SwaggerBundleConfiguration swagger) {
+        this.swagger = swagger;
     }
 
     @JsonProperty
