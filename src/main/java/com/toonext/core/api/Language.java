@@ -1,8 +1,8 @@
 package com.toonext.core.api;
 
 
-import com.toonext.domain.SimpleReferenceEntity;
-import com.toonext.localization.constants.LanguageCode;
+import com.toonext.adapter.SimpleReferenceEntity;
+import com.toonext.constants.LanguageCode;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 public class Language extends SimpleReferenceEntity {

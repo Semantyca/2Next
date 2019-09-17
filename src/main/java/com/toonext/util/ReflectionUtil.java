@@ -1,7 +1,7 @@
 package com.toonext.util;
 
 
-import com.toonext.domain.IAppEntity;
+import com.toonext.api.IAppEntity;
 import com.toonext.log.Lg;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;

@@ -1,6 +1,7 @@
 package com.toonext.security;
 
-import com.toonext.domain.user.AnonymousUser;
+
+import com.toonext.core.api.AnonymousUser;
 
 public class CustomCredentials {
   private String token = "0";

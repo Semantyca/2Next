@@ -1,7 +1,7 @@
 package com.toonext.dto;
 
+import com.toonext.constants.LanguageCode;
 import com.toonext.core.api.Language;
-import com.toonext.localization.constants.LanguageCode;
 
 import java.util.List;
 import java.util.SortedMap;

@@ -1,4 +1,5 @@
-package com.toonext.domain.user;
+package com.toonext.core.api;
+
 
 public class AnonymousUser extends SystemUser {
     public final static String USER_NAME = "anonymous";

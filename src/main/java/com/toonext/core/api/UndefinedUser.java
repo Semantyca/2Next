@@ -1,4 +1,5 @@
-package com.toonext.domain.user;
+package com.toonext.core.api;
+
 
 public class UndefinedUser extends SystemUser {
     public final static String USER_NAME = "undefined";

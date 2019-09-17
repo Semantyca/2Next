@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.toonext.EnvConst;
 import com.toonext.UserSession;
-import com.toonext.domain.IAppEntity;
+import com.toonext.api.IAppEntity;
+
 
 import java.util.Collection;
 import java.util.LinkedHashMap;

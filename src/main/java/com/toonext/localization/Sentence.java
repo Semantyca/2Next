@@ -1,15 +1,13 @@
 package com.toonext.localization;
 
-
-import com.toonext.domain.IModel;
-import com.toonext.localization.constants.LanguageCode;
+import com.toonext.constants.LanguageCode;
 import org.w3c.dom.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Sentence implements IModel {
+public class Sentence {
     public String app;
     public HashMap<LanguageCode, String> words = new HashMap<LanguageCode, String>();
 

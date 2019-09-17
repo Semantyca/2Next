@@ -1,7 +1,7 @@
 package com.toonext.security;
 
+import com.toonext.core.api.Token;
 import com.toonext.core.dao.ITokenDAO;
-import com.toonext.domain.user.Token;
 import com.toonext.log.Lg;
 import io.dropwizard.auth.AuthFilter;
 import org.jdbi.v3.core.Jdbi;

@@ -1,21 +1,17 @@
-package com.toonext.domain.user;
+package com.toonext.core.api;
 
-import org.jdbi.v3.core.mapper.reflect.ColumnName;
 import java.time.ZonedDateTime;
 
 public class Token {
 
     private long id;
 
-    @ColumnName("user_id")
     private long userId;
 
-    @ColumnName("reg_date")
     private ZonedDateTime regDate;
 
     private String token;
 
-    @ColumnName("expiration_time")
     private ZonedDateTime expirationTime;
 
     public long getId() {

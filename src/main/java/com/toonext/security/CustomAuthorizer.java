@@ -1,7 +1,7 @@
 package com.toonext.security;
 
 
-import com.toonext.domain.user.IUser;
+import com.toonext.api.IUser;
 import io.dropwizard.auth.Authorizer;
 
 public class CustomAuthorizer implements Authorizer<IUser> {

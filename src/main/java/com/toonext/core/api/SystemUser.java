@@ -1,8 +1,9 @@
-package com.toonext.domain.user;
+package com.toonext.core.api;
 
 
-import com.toonext.core.api.constants.UserStatusCode;
-import com.toonext.localization.constants.LanguageCode;
+import com.toonext.api.IUser;
+import com.toonext.constants.LanguageCode;
+import com.toonext.constants.UserStatusCode;
 
 import javax.security.auth.Subject;
 import java.time.ZonedDateTime;

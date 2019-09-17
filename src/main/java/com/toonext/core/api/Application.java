@@ -2,9 +2,9 @@ package com.toonext.core.api;
 
 
 import com.toonext.EnvConst;
+import com.toonext.adapter.SimpleReferenceEntity;
+import com.toonext.constants.LanguageCode;
 import com.toonext.core.api.constants.VisibilityMode;
-import com.toonext.domain.SimpleReferenceEntity;
-import com.toonext.localization.constants.LanguageCode;
 import com.toonext.util.ReflectionUtil;
 
 import java.util.Map;

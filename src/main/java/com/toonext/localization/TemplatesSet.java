@@ -2,9 +2,8 @@ package com.toonext.localization;
 
 
 import com.toonext.EnvConst;
-
 import com.toonext.GlobalEnv;
-import com.toonext.localization.constants.LanguageCode;
+import com.toonext.constants.LanguageCode;
 import com.toonext.log.Lg;
 import com.toonext.messaging.MessagingType;
 import org.apache.commons.io.FileUtils;

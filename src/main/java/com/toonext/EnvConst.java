@@ -1,7 +1,6 @@
 package com.toonext;
 
-
-import com.toonext.localization.constants.LanguageCode;
+import com.toonext.constants.LanguageCode;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.File;

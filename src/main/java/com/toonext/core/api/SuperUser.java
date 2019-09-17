@@ -1,4 +1,6 @@
-package com.toonext.domain.user;
+package com.toonext.core.api;
+
+import com.toonext.adapter.ServerRole;
 
 import java.util.ArrayList;
 import java.util.Arrays;

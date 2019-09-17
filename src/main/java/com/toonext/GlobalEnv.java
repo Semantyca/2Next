@@ -1,6 +1,5 @@
 package com.toonext;
 
-import com.toonext.domain.AppEnv;
 import com.toonext.localization.TemplatesSet;
 import com.toonext.localization.Vocabulary;
 import com.toonext.log.Lg;
@@ -27,7 +26,6 @@ public class GlobalEnv {
     public static String wallpaper;
 
     public static int httpPort = EnvConst.DEFAULT_HTTP_PORT;
-    public static AppEnv adminApplication;
     public static HashMap<String, String> mimeHash = new HashMap<>();
     public static String tmpDir;
     public static String trash;
@@ -79,8 +77,6 @@ public class GlobalEnv {
 
     private static String hostName;
     private static String virtualHostName;
-    private static HashMap<String, AppEnv> applications = new HashMap<>();
-    private static ConcurrentHashMap<String, AppEnv> allAppAliases = new ConcurrentHashMap<>();
     private static boolean isDevMode;
     private static String officeFrameDir;
     private static String kernelDir;
@@ -88,25 +84,7 @@ public class GlobalEnv {
 
 
 
-    public static void addApplicationAlias(String alias, AppEnv env) {
-        allAppAliases.put(alias, env);
-    }
 
-    public static AppEnv getAppEnvByAlias(String appID) {
-        return allAppAliases.get(appID);
-    }
-
-    public static ConcurrentHashMap<String, AppEnv> getAllAppAliases() {
-        return allAppAliases;
-    }
-
-    public static AppEnv getApplication(String appID) {
-        return applications.get(appID);
-    }
-
-    public static Collection<AppEnv> getApplications() {
-        return new HashSet<>(applications.values());
-    }
 
     public static String getHostName() {
         return hostName;

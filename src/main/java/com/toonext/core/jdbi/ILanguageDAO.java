@@ -1,8 +1,8 @@
 package com.toonext.core.jdbi;
 
 
+import com.toonext.constants.LanguageCode;
 import com.toonext.core.api.Language;
-import com.toonext.localization.constants.LanguageCode;
 import org.jdbi.v3.sqlobject.config.RegisterColumnMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;

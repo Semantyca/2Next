@@ -2,12 +2,13 @@ package com.toonext.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.toonext.domain.IAppEntity;
-import com.toonext.domain.SecureAppEntity;
-import com.toonext.domain.embedded.Reader;
-import com.toonext.domain.user.AnonymousUser;
-import com.toonext.domain.user.SuperUser;
-import com.toonext.domain.user.UndefinedUser;
+
+import com.toonext.adapter.SecureAppEntity;
+import com.toonext.adapter.embedded.Reader;
+import com.toonext.api.IAppEntity;
+import com.toonext.core.api.AnonymousUser;
+import com.toonext.core.api.SuperUser;
+import com.toonext.core.api.UndefinedUser;
 import com.toonext.util.TimeUtil;
 
 import java.util.Date;

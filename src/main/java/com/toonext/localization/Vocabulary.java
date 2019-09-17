@@ -1,8 +1,8 @@
 package com.toonext.localization;
 
-import com.toonext.domain.AppEnv;
+import com.toonext.constants.LanguageCode;
 
-import com.toonext.localization.constants.LanguageCode;
+
 import com.toonext.log.Lg;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -19,9 +19,6 @@ public class Vocabulary {
 
     }
 
-    public Vocabulary(AppEnv env) {
-
-    }
 
     @Deprecated
     public Vocabulary(String appName) {

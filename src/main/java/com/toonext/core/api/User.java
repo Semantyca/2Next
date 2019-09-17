@@ -3,12 +3,13 @@ package com.toonext.core.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.toonext.EnvConst;
-import com.toonext.core.api.constants.UserStatusCode;
-import com.toonext.domain.user.IUser;
-import com.toonext.localization.constants.LanguageCode;
+import com.toonext.api.IUser;
+import com.toonext.constants.LanguageCode;
+import com.toonext.constants.UserStatusCode;
 import com.toonext.util.StringUtil;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
+import javax.security.auth.Subject;
 import java.security.Principal;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -196,6 +197,11 @@ public class User implements IUser, Principal {
     }
 
     @Override
+    public boolean isAnonymous() {
+        return false;
+    }
+
+    @Override
     public List<String> getRoles() {
         return roles;
     }
@@ -210,13 +216,13 @@ public class User implements IUser, Principal {
     }
 
     @Override
-    public LanguageCode getDefaultLang() {
-        return null;
+    public void setDefaultLang(LanguageCode defaultLang) {
+        this.defaultLang = defaultLang;
     }
 
     @Override
-    public void setDefaultLang(LanguageCode defaultLang) {
-
+    public LanguageCode getDefaultLang() {
+        return defaultLang;
     }
 
     @Override
@@ -258,5 +264,10 @@ public class User implements IUser, Principal {
     @Override
     public String getName() {
         return login;
+    }
+
+    @Override
+    public boolean implies(Subject subject) {
+        return false;
     }
 }
