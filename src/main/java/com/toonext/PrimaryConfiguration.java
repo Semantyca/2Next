@@ -1,6 +1,7 @@
 package com.toonext;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.toonext.client.JerseyClientConfiguration;
 import com.toonext.ftengine.ElasticSearchConfiguration;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
@@ -17,6 +18,8 @@ public class PrimaryConfiguration extends Configuration {
     private DataSourceFactory database = new DataSourceFactory();
 
     private ElasticSearchConfiguration elastic = new ElasticSearchConfiguration();
+
+    private JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();
 
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory factory) {
@@ -49,5 +52,11 @@ public class PrimaryConfiguration extends Configuration {
         this.template = template;
     }
 
+    public void setJerseyClient(JerseyClientConfiguration jerseyClient) {
+        this.jerseyClient = jerseyClient;
+    }
 
+    public Object getJerseyClientConfiguration() {
+        return jerseyClient;
+    }
 }

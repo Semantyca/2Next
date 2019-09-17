@@ -1,4 +1,4 @@
-package com.toonext.core.jdbi;
+package com.toonext.core.dao;
 
 
 import com.toonext.core.api.User;
@@ -23,7 +23,7 @@ public interface IUserDAO {
     User findById(@Bind("id") long login);
 
     @SqlUpdate(
-            "CREATE LABELS_TABLE_FULL_NAME public._users" +
+            "CREATE TABLE public._users" +
             "(" +
             "  id SERIAL PRIMARY KEY," +
             "  login character varying(100) UNIQUE," +
@@ -63,7 +63,7 @@ public interface IUserDAO {
 
 
 
-    @SqlUpdate("DROP LABELS_TABLE_FULL_NAME public._langs CASCADE;")
+    @SqlUpdate("DROP TABLE public._langs CASCADE;")
     void drop();
 
 }

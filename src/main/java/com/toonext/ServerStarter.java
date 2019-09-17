@@ -8,9 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.toonext.api.IUser;
 import com.toonext.core.health.TemplateHealthCheck;
-import com.toonext.core.jdbi.IUserDAO;
-import com.toonext.core.task.DatabaseInitializer;
-import com.toonext.core.task.PopulateTestUsers;
+import com.toonext.core.dao.IUserDAO;
 import com.toonext.exception.JsonInformativeExceptionMapper;
 import com.toonext.localization.validation.NBViolationExceptionMapper;
 import com.toonext.localization.validation.ValidationMessageInterpolator;
@@ -56,8 +54,11 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
         om.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         om.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
-        om.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.ANY);
+        om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.NONE);
+        om.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.PUBLIC_ONLY);
+        om.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.PUBLIC_ONLY);
+
+
 
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
 
@@ -94,9 +95,6 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
 
 
         restEnv.register(new NBViolationExceptionMapper());
-
-        environment.admin().addTask(new DatabaseInitializer(jdbi));
-        environment.admin().addTask(new PopulateTestUsers(jdbi));
 
         IUserDAO userDAO = jdbi.onDemand(IUserDAO.class);
 

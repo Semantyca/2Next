@@ -1,8 +1,10 @@
-package com.toonext.core.jdbi;
+package com.toonext.core.dao;
 
 
 import com.toonext.constants.LanguageCode;
 import com.toonext.core.api.Language;
+import com.toonext.core.dao.mapper.LanguageMapper;
+import com.toonext.core.jdbi.BindJson;
 import org.jdbi.v3.sqlobject.config.RegisterColumnMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
@@ -23,7 +25,7 @@ public interface ILanguageDAO {
     @RegisterColumnMapper(LanguageMapper.class)
     List<Language> findAllActivated();
 
-    @SqlUpdate("CREATE LABELS_TABLE_FULL_NAME public._langs" +
+    @SqlUpdate("CREATE TABLE public._langs" +
             "(" +
             "  id uuid DEFAULT uuid_generate_v4()," +
             "  code character varying(7)," +
@@ -58,7 +60,7 @@ public interface ILanguageDAO {
     @SqlQuery("select name from something where id = :id")
     String findNameById(@Bind("id") int id);
 
-    @SqlUpdate("DROP LABELS_TABLE_FULL_NAME public._langs CASCADE;")
+    @SqlUpdate("DROP TABLE_FULL_NAME public._langs CASCADE;")
     void drop();
 
 }

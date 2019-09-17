@@ -31,8 +31,8 @@ public interface ITokenDAO {
     void delete(@Bind("tokenString") String tokenString);
 
 
-    @SqlUpdate("\n" +
-            "CREATE LABELS_TABLE_FULL_NAME public._tokens" +
+    @SqlUpdate(
+            "CREATE TABLE public._tokens" +
             "(" +
             "  id SERIAL PRIMARY KEY," +
             "  user_id bigint NOT NULL," +

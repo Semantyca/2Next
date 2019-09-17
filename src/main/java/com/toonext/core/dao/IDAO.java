@@ -15,8 +15,7 @@ public interface IDAO {
             "  loc_name jsonb," +
             "  identifier character varying(64) UNIQUE," +
                ENTITY_DDL_PIECE +
-            "  CONSTRAINT _pkey PRIMARY KEY(id)," +
-            "  CONSTRAINT fk_author FOREIGN KEY(author) REFERENCES public._users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION";
+            "  CONSTRAINT _pkey PRIMARY KEY(id)";
 
 
 }

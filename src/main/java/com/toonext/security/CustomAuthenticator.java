@@ -5,7 +5,7 @@ import com.toonext.UserSession;
 import com.toonext.adapter.ServerRole;
 import com.toonext.api.IUser;
 import com.toonext.core.api.AnonymousUser;
-import com.toonext.core.jdbi.IUserDAO;
+import com.toonext.core.dao.IUserDAO;
 import com.toonext.util.SessionsTracker;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
