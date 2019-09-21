@@ -9,7 +9,7 @@ import io.dropwizard.db.DataSourceFactory;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-public class PrimaryConfiguration extends Configuration {
+public class DefaultConfiguration extends Configuration {
 
     private String template;
 
@@ -52,9 +52,6 @@ public class PrimaryConfiguration extends Configuration {
         this.template = template;
     }
 
-    public void setJerseyClient(JerseyClientConfiguration jerseyClient) {
-        this.jerseyClient = jerseyClient;
-    }
 
     public Object getJerseyClientConfiguration() {
         return jerseyClient;

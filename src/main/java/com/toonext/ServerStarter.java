@@ -19,6 +19,7 @@ import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
@@ -33,11 +34,13 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.ws.rs.client.Client;
 import java.util.Locale;
 
-public abstract class ServerStarter<C extends PrimaryConfiguration> extends Application<C> {
+public abstract class ServerStarter<C extends DefaultConfiguration> extends Application<C> {
     private static boolean isDevMode = true;
     public Jdbi jdbi;
+    public Client restClient;
     public RestHighLevelClient elasticClient;
     public Validator validator;
 
@@ -62,9 +65,9 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
 
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
 
-        /*bootstrap.addBundle(new SwaggerBundle<PrimaryConfiguration>() {
+        /*bootstrap.addBundle(new SwaggerBundle<DefaultConfiguration>() {
             @Override
-            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(PrimaryConfiguration configuration) {
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(DefaultConfiguration configuration) {
                 return configuration.getSwagger();
             }
         });*/
@@ -83,12 +86,14 @@ public abstract class ServerStarter<C extends PrimaryConfiguration> extends Appl
                 .getValidator();
         environment.setValidator(validator);
 
+
         JerseyEnvironment restEnv = environment.jersey();
         restEnv.setUrlPattern("/api/*");
         DataSourceFactory sourceFactory = config.getDataSourceFactory();
         jdbi = Jdbi.create(sourceFactory.getUrl(),sourceFactory.getUser(),sourceFactory.getPassword());
         jdbi.installPlugin(new PostgresPlugin());
         jdbi.installPlugin(new SqlObjectPlugin());
+        restClient = new JerseyClientBuilder(environment).build("DemoRESTClient");
         elasticClient = new RestHighLevelClient(
                 RestClient.builder(
                         new HttpHost(config.getElastic().getHost(), config.getElastic().getPort(), "http")));
