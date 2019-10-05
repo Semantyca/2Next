@@ -1,5 +1,6 @@
 package com.toonext.adapter;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.toonext.api.IAppEntity;
 
 import java.sql.Timestamp;
@@ -67,10 +68,12 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         return regDate;
     }
 
+    @JsonSetter("reg_date")
     public void setRegDate(ZonedDateTime regDate) {
         this.regDate = regDate;
     }
 
+    @JsonSetter("last_mod_date")
     public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
@@ -83,6 +86,7 @@ public abstract class AppEntity<K> implements IAppEntity<K> {
         return lastModifier;
     }
 
+    @JsonSetter("last_mod_user")
     public void setLastModifier(Long lastModifier) {
         this.lastModifier = lastModifier;
     }
