@@ -9,12 +9,10 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class GlobalEnv {
 
@@ -27,7 +25,7 @@ public class GlobalEnv {
 
     public static int httpPort = EnvConst.DEFAULT_HTTP_PORT;
     public static HashMap<String, String> mimeHash = new HashMap<>();
-    public static String tmpDir;
+    public static String tmpDir = System.getProperty("user.home") + File.separator + "tmp";
     public static String trash;
 
     public static Boolean isTLSEnable = false;
