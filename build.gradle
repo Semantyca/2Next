@@ -1,9 +1,25 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://dl.bintray.com/fooberger/maven"
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.thorntail:thorntail-gradle-plugin:2.6.0.Final"
+    }
+}
+
 plugins {
     id 'java'
 }
 
 group 'com.semantyca'
-version '1.0-SNAPSHOT'
+version '0.1'
 
 sourceCompatibility = 1.8
 
@@ -11,6 +27,32 @@ repositories {
     mavenCentral()
 }
 
+apply plugin: 'thorntail'
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'com.semantyca.Main'
+
+thorntail {
+    fractions = ['io.thorntail:jaxrs', 'io.thorntail:cdi']
+    properties {
+        swarm.http.port = 8181
+    }
+}
+
+repositories {
+    maven {
+        url "https://repo.gradle.org/gradle/libs-releases-local"
+    }
+}
+
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation(enforcedPlatform("io.thorntail:bom-all:2.6.0.Final"))
+    implementation "io.thorntail:cdi"
+    implementation "io.thorntail:jaxrs"
+
+    implementation "commons-io:commons-io:2.4"
+
+    testImplementation "io.thorntail:gradle-arquillian-adapter:2.6.0.Final"
+    testImplementation "junit:junit:4.12"
 }
