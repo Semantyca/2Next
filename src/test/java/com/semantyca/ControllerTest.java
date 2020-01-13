@@ -10,17 +10,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.swarm.arquillian.DefaultDeployment;
 
-import com.semantyca.service.Greeter;
+import com.semantyca.entity.UiPage;
 
 @RunWith(Arquillian.class)
 @DefaultDeployment(type = DefaultDeployment.Type.JAR)
 public class ControllerTest {
     @Inject
-    private Greeter greeter;
+    private UiPage uiPage;
 
     @Test
     public void testInjection() {
         assertNotNull(CDI.current());
-        assertNotNull("Bean injection has failed.", greeter);
+        assertNotNull("Bean injection has failed.", uiPage);
     }
 }
