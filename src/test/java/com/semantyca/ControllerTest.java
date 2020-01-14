@@ -15,6 +15,7 @@ import com.semantyca.entity.UiPage;
 @RunWith(Arquillian.class)
 @DefaultDeployment(type = DefaultDeployment.Type.JAR)
 public class ControllerTest {
+
     @Inject
     private UiPage uiPage;
 

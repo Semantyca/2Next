@@ -12,11 +12,8 @@ public class Main {
     public static void main(String... args) throws Exception {
         Swarm swarm = new Swarm();
         JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
-        deployment.addClass(com.semantyca.entity.UiPage.class);
-        deployment.addClass(com.semantyca.entity.Payload.class);
-        deployment.addClass(com.semantyca.entity.UserSession.class);
-        deployment.addClass(com.semantyca.entity.UserSettings.class);
-        deployment.addClass(WelcomePageController.class);
+        deployment.addPackage("com.semantyca.entity");
+        deployment.addPackage("com.semantyca.controller");
         deployment.addClass(App.class);
         deployment.addAsResource(EmptyAsset.INSTANCE, "META-INF/beans.xml");
         deployment.addAllDependencies();

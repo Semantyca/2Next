@@ -8,11 +8,7 @@ import javax.ws.rs.core.Application;
 
 @ApplicationPath("/")
 public class App extends Application {
-    public String getGreeting() {
-        return "Hello world.";
-    }
-
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
     }
 }

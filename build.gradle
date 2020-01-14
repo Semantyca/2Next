@@ -25,6 +25,9 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://repo.gradle.org/gradle/libs-releases-local"
+    }
 }
 
 apply plugin: 'thorntail'
@@ -38,13 +41,6 @@ thorntail {
         swarm.http.port = 8181
     }
 }
-
-repositories {
-    maven {
-        url "https://repo.gradle.org/gradle/libs-releases-local"
-    }
-}
-
 
 dependencies {
     implementation(enforcedPlatform("io.thorntail:bom-all:2.6.0.Final"))
