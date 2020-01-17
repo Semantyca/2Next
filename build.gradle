@@ -1,9 +1,7 @@
 buildscript {
     repositories {
-        mavenCentral()
-        jcenter()
         maven {
-            url "https://dl.bintray.com/fooberger/maven"
+            url "https://repo.maven.apache.org/maven2"
         }
         maven {
             url "https://plugins.gradle.org/m2/"
@@ -24,7 +22,9 @@ version '0.1'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    maven {
+        url "https://repo.maven.apache.org/maven2"
+    }
     maven {
         url "https://repo.gradle.org/gradle/libs-releases-local"
     }
@@ -36,7 +36,7 @@ apply plugin: 'application'
 mainClassName = 'com.semantyca.Main'
 
 thorntail {
-    fractions = ['io.thorntail:jaxrs', 'io.thorntail:cdi']
+    fractions = ['io.thorntail:jaxrs', 'io.thorntail:cdi', 'io.thorntail:datasources']
     properties {
         swarm.http.port = 8181
     }
@@ -48,6 +48,9 @@ dependencies {
     implementation "io.thorntail:jaxrs"
 
     implementation "commons-io:commons-io:2.4"
+
+//    compile "com.h2database:h2:1.4.200"
+    compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
 
     testImplementation "io.thorntail:gradle-arquillian-adapter:2.6.0.Final"
     testImplementation "junit:junit:4.12"

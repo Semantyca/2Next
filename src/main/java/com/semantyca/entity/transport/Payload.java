@@ -1,4 +1,4 @@
-package com.semantyca.entity;
+package com.semantyca.entity.transport;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
-import javax.inject.Inject;
+import javax.inject.Named;
 
-@Default
-public class Payload {
+@Named @RequestScoped
+public class Payload extends AbstractPayload {
     private String orgLogo = "/Workspace/img/f.jpg";
     private String about = "<div class=\\\"tpl-page\\\">\\n    <h2 class=\\\"page-header\\\">some about info</h2>\\n</div>\\n";
     private String orgName = "Semantyca Ltd";
@@ -22,18 +23,11 @@ public class Payload {
     private Date build = new Date();
     private Map<String, String> availableLanguages = new LinkedHashMap<>();
     private List<String> uiThemes = new ArrayList<>();
-    private UserSession sessionOf;
-
-    @Inject
-    public Payload(UserSession sessionOf) {
-        this.sessionOf = sessionOf;
-    }
-
 
     @PostConstruct
     private void init() {
         availableLanguages.put("ENG","English");
-        availableLanguages.put("RUS","Русский");
+        availableLanguages.put("RUS","Руccкий");
         availableLanguages.put("POR","Português");
 
         uiThemes.addAll(Arrays.asList(new String[]{"azul", "cinzento", "branco", "preto"}));
@@ -110,14 +104,6 @@ public class Payload {
 
     public void setUiThemes(final List<String> uiThemes) {
         this.uiThemes = uiThemes;
-    }
-
-    public UserSession getSessionOf() {
-        return sessionOf;
-    }
-
-    public void setSessionOf(final UserSession sessionOf) {
-        this.sessionOf = sessionOf;
     }
 
 }

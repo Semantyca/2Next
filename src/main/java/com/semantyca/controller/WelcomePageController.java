@@ -8,18 +8,20 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.semantyca.entity.UiPage;
+import com.semantyca.entity.transport.Message;
+import com.semantyca.entity.transport.Payload;
 
 @Path("/")
 public class WelcomePageController {
 
     @Inject
-    private com.semantyca.entity.Payload payload;
+    private Payload payload;
 
     @GET
     @Path("/welcome")
     @Produces(MediaType.APPLICATION_JSON)
     public Response hello() {
-        UiPage output = new UiPage(payload);
+        Message output = new Message(payload);
         return Response.ok(output).build();
     }
 

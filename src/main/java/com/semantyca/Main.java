@@ -13,6 +13,8 @@ public class Main {
         Swarm swarm = new Swarm();
         JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
         deployment.addPackage("com.semantyca.entity");
+        deployment.addPackage("com.semantyca.entity.transport");
+        deployment.addPackage("com.semantyca.entity.traits");
         deployment.addPackage("com.semantyca.controller");
         deployment.addClass(App.class);
         deployment.addAsResource(EmptyAsset.INSTANCE, "META-INF/beans.xml");

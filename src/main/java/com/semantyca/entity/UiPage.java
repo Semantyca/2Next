@@ -1,7 +1,8 @@
 package com.semantyca.entity;
 
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
+
+import com.semantyca.entity.transport.Payload;
 
 public class UiPage {
     private String id = "undefined";
