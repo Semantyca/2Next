@@ -1,5 +1,6 @@
 package com.semantyca.srv.endpoints;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -13,11 +14,13 @@ import javax.ws.rs.core.Response;
 
 import com.semantyca.entity.SemantycaGroup;
 import com.semantyca.entity.SemantycaUser;
+import com.semantyca.srv.persistence.GroupService;
 import com.semantyca.transport.SeMessage;
 import com.semantyca.transport.SePayload;
-import com.semantyca.srv.persistence.GroupServiceJpaFactory;
 
+@RequestScoped
 @Path("/auth")
+@Transactional
 public class DefaultEndpoint {
 
     @Inject
@@ -26,7 +29,7 @@ public class DefaultEndpoint {
     private SemantycaUser semantycaUser;
 
     @Inject
-    private GroupServiceJpaFactory jpaFactory;
+    private GroupService groupService;
 
     @GET
     @Path("/welcome")
@@ -40,21 +43,15 @@ public class DefaultEndpoint {
     @Path("/groups")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listGroups() {
-        EntityManager em = jpaFactory.getEntityManager();
-        return Response.ok(em.createNamedQuery("SemantycaGroup.findAll", SemantycaGroup.class).getResultList()).build();
+        return Response.ok(groupService.getAll()).build();
     }
 
     @POST
     @Path("/group/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Response addGroup(String groupName) {
-        EntityManager em = jpaFactory.getEntityManager();
-        SemantycaGroup se = new SemantycaGroup();
-        se.setGroupName(groupName);
-        em.persist(se);
-        return Response.ok(se).build();
+    public Response addGroup(SemantycaGroup group) {
+        return Response.ok(groupService.saveOrUpdate(group)).build();
     }
 
 }

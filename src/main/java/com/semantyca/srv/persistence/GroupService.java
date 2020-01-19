@@ -15,8 +15,13 @@ public class GroupService {
     private EntityManager em;
 
     public List<SemantycaGroup> getAll() {
-       // EntityManagerFactory inmem = Persistence.createEntityManagerFactory("inmem");
+        // EntityManagerFactory inmem = Persistence.createEntityManagerFactory("inmem");
         return em.createNamedQuery("SemantycaGroup.findAll", SemantycaGroup.class).getResultList();
-}
+    }
+
+    public SemantycaGroup saveOrUpdate(SemantycaGroup group) {
+        em.persist(group);
+        return group;
+    }
 
 }
