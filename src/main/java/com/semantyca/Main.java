@@ -1,10 +1,11 @@
-package com.semantyca.srv;
+package com.semantyca;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.wildfly.swarm.Swarm;
 import org.wildfly.swarm.jaxrs.JAXRSArchive;
 
+import com.semantyca.App;
 
 public class Main {
 
@@ -12,6 +13,7 @@ public class Main {
 
         Swarm swarm = new Swarm();
         JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
+        deployment.addPackage("com.semantyca");
         deployment.addPackage("com.semantyca.entity");
         deployment.addPackage("com.semantyca.transport");
         deployment.addPackage("com.semantyca.traits");
@@ -20,6 +22,7 @@ public class Main {
         deployment.addClass(App.class);
         deployment.addAsResource(EmptyAsset.INSTANCE, "META-INF/beans.xml");
         deployment.addAsResource(EmptyAsset.INSTANCE, "META-INF/persistence.xml");
+        deployment.addAsResource(EmptyAsset.INSTANCE, "WEB-INF/classes/META-INF/persistence.xml");
         deployment.addAsResource(EmptyAsset.INSTANCE, "project-defaults.yaml");
         deployment.addAsResource(EmptyAsset.INSTANCE, "modules/com/h2/main/modules.xml");
         deployment.addAllDependencies();

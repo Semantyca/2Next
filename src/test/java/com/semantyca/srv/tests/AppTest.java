@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.semantyca.srv.App;
+import com.semantyca.App;
 
 public class AppTest {
     @Test public void testAppHasAGreeting() {

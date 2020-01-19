@@ -1,4 +1,4 @@
-package com.semantyca.srv;
+package com.semantyca;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
