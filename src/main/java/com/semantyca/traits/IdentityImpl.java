@@ -1,23 +1,19 @@
-package com.semantyca.entity.traits;
+package com.semantyca.traits;
 
-import java.io.Serializable;
 import java.util.UUID;
 
-import javax.persistence.Id;
-
-public abstract class Identity implements Serializable {
-    @Id
+public class IdentityImpl implements Identity {
     private String id;
 
-    public Identity() {
+    public IdentityImpl() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public String getId() {
-        return id;
+    @Override public String getId() {
+       return this.id;
     }
 
-    public void setId(final String id) {
+    @Override public void setId(final String id) {
         this.id = id;
     }
 

@@ -1,34 +1,43 @@
-package com.semantyca;
+package com.semantyca.srv.tests;
 
 import static org.junit.Assert.assertNotNull;
 
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.naming.InitialContext;
-import javax.sql.DataSource;
 
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.swarm.arquillian.DefaultDeployment;
 
-import com.semantyca.entity.UiPage;
+import com.semantyca.srv.endpoints.DefaultEndpoint;
+import com.semantyca.transport.SeMessage;
 
 @RunWith(Arquillian.class)
-@DefaultDeployment(type = DefaultDeployment.Type.JAR)
 public class ITests {
 
     @ArquillianResource
     InitialContext context;
 
     @Inject
-    private UiPage uiPage;
+    private SeMessage msg;
+
+    @Deployment(testable = true)
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addClass(DefaultEndpoint.class)
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
     @Test
     public void testInjection() {
         assertNotNull(CDI.current());
-        assertNotNull("Bean injection has failed.", uiPage);
+        assertNotNull("Bean injection has failed.", msg);
     }
 
   /*  @Test

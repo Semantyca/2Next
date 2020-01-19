@@ -1,0 +1,9 @@
+GET http://localhost:8181/micro/auth/groups HTTP/1.1
+content-type: application/json
+###
+
+POST http://localhost:8181/micro/auth/group/add HTTP/1.1
+content-type: application/json
+
+
+{"id":"d9a75434-3af8-426d-b438-f15c71447f6f","groupName": "pennyyy"}

@@ -1,9 +1,15 @@
 package com.semantyca.entity;
 
-import com.semantyca.entity.traits.Identity;
+import lombok.Data;
 
-public class OrgRole extends Identity {
+@Data
+public class SemantycaRole {
+    private String id;
     private String roleName;
+
+    public SemantycaRole() {
+
+    }
 
     public String getRoleName() {
         return roleName;
@@ -12,4 +18,5 @@ public class OrgRole extends Identity {
     public void setRoleName(final String roleName) {
         this.roleName = roleName;
     }
+
 }

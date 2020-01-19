@@ -1,4 +1,4 @@
-package com.semantyca.entity.transport;
+package com.semantyca.transport;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,12 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Default;
 import javax.inject.Named;
 
-@Named @RequestScoped
-public class Payload extends AbstractPayload {
+@Named
+public class SePayload {
     private String orgLogo = "/Workspace/img/f.jpg";
     private String about = "<div class=\\\"tpl-page\\\">\\n    <h2 class=\\\"page-header\\\">some about info</h2>\\n</div>\\n";
     private String orgName = "Semantyca Ltd";
@@ -23,6 +21,10 @@ public class Payload extends AbstractPayload {
     private Date build = new Date();
     private Map<String, String> availableLanguages = new LinkedHashMap<>();
     private List<String> uiThemes = new ArrayList<>();
+
+    public SePayload() {
+
+    }
 
     @PostConstruct
     private void init() {

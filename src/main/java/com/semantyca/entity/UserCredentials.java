@@ -1,6 +1,10 @@
 package com.semantyca.entity;
 
 public class UserCredentials {
+
+    public UserCredentials() {
+
+    }
     //these fields should be encrypted at db level as well
     private String privateKey, publicKey;
 

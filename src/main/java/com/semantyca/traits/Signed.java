@@ -1,8 +1,12 @@
-package com.semantyca.entity.traits;
+package com.semantyca.traits;
 
 public abstract class Signed {
 
     private String signature;
+
+    public Signed() {
+
+    }
 
     public String getSignature() {
         return this.signature;
